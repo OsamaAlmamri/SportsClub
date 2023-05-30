@@ -1,0 +1,9 @@
+dotnet tool install --global dotnet-ef 
+
+
+ dotnet ef dbcontext scaffold "Server=.\\;Database=static_data5;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Modelxxx
+
+
+ dotnet ef migrations add InitialCreate  -s SportsClub/SportsClub.csproj
+ dotnet ef migrations  script    -s SportsClub/SportsClub.csproj
+ dotnet ef migrations  add "inti"    -s SportsClub/SportsClub.csproj

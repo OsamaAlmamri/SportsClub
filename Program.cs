@@ -1,8 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using SportsClub.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<SportsClubContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlCon2022"));
+});
 
 var app = builder.Build();
 

@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "SportsClub"
+  "defaultProject": "SportsClub",
+  "cli": {
+    "analytics": "1d38ca33-7dee-4ce3-a069-df0aadae3bd2"
+  }
 }
