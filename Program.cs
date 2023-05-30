@@ -1,35 +1,58 @@
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
 using SportsClub.Models;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllersWithViews();
-
-builder.Services.AddDbContext<SportsClubContext>(options =>
+namespace SportsClub
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlCon2022"));
-});
+    public class Program
+    {
 
-var app = builder.Build();
+        public static void Main(string[] args)
+        {
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+            var WebHost = CreateHostBuilder(args).Build();
+
+            RunMigration(WebHost);
+            WebHost.Run();
+        }
+
+        private static void RunMigration(IHost webHost)
+        {
+            using (var scope = webHost.Services.CreateScope())
+            {
+
+                var db = scope.ServiceProvider.GetRequiredService<SportsClubContext>();
+                db.Database.Migrate();
+
+            }
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+
+                    webBuilder.UseContentRoot(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+                });
+
+
+
+
+
+
+
+
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
-
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapFallbackToFile("index.html"); ;
-
-app.Run();
