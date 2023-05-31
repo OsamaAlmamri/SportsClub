@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace SportsClub.Models
 {
 
-    public partial class User : IdentityUser<String>
+    public partial class User : IdentityUser
     {
         // public String Id { get; set; }
 

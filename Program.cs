@@ -1,17 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SportsClub.Models;
-
-using SportsClub.Core.JWTServices.Authenticators;
-using SportsClub.Core.JWTServices.RefreshTokenRepositories;
-using SportsClub.Core.JWTServices.TokenGenerators;
-using SportsClub.Core.JWTServices.TokenValidators;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Text;
 using SportsClub.DataTransferObjects;
 using AutoMapper;
 using SportsClub.Models.Repositores;
 using SportsClub.Core.Pagination.Services;
+using SportsClub.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -25,6 +23,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 var mappingConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new MappingProfile());
+  //  mc.AddProfile<UserDto>();
 });
 
 IMapper mapper = mappingConfig.CreateMapper();
@@ -37,8 +36,7 @@ builder.Services.AddDbContext<SportsClubContext>(options =>
 builder.Services.AddScoped<IRepositoryBase<ServiceType>, ServiceTypeRepostry>();
 builder.Services.AddScoped<IRepositoryBase<ServiceTime>, ServiceTimeRepostry>();
 builder.Services.AddScoped<IRepositoryBase<Service>, ServiceRepostry>();
-
-
+builder.Services.AddScoped<IUserAuthenticationRepository, UserAuthenticationRepository>();
 
 
 builder.Services.AddHttpContextAccessor();
@@ -61,7 +59,9 @@ x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandli
 //    new DefaultAzureCredential());
 //authenticationConfiguration.AccessTokenSecret = keyVaultClient.GetSecret("access-token-secret").Value.Value;
 
-
+builder.Services.AddAuthentication();
+builder.Services.ConfigureIdentity();
+builder.Services.ConfigureJWT(builder.Configuration);
 
 AuthenticationConfiguration authenticationConfiguration = new AuthenticationConfiguration();
 //_configuration.Bind("Authentication", authenticationConfiguration);
@@ -75,28 +75,6 @@ builder.Services
     .AddControllersAsServices();
 
 
-
-//builder.Services.AddSingleton(authenticationConfiguration);
-builder.Services.AddSingleton<AccessTokenGenerator>();
-builder.Services.AddSingleton<RefreshTokenGenerator>();
-builder.Services.AddSingleton<RefreshTokenValidator>();
-builder.Services.AddScoped<Authenticator>();
-builder.Services.AddSingleton<TokenGenerator>();
-builder.Services.AddScoped<IRefreshTokenRepository, DatabaseRefreshTokenRepository>();
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
-{
-    o.TokenValidationParameters = new TokenValidationParameters()
-    {
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationConfiguration.AccessTokenSecret)),
-        ValidIssuer = authenticationConfiguration.Issuer,
-        ValidAudience = authenticationConfiguration.Audience,
-        ValidateIssuerSigningKey = true,
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ClockSkew = TimeSpan.Zero
-    };
-});
 
 
 var app = builder.Build();
