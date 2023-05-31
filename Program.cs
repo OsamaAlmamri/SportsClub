@@ -3,8 +3,10 @@ using SportsClub.Models;
 using SportsClub.DataTransferObjects;
 using AutoMapper;
 using SportsClub.Models.Repositores;
+using SportsClub.Core.Requests;
 using SportsClub.Core.Pagination.Services;
 using SportsClub.Extensions;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -72,6 +74,10 @@ builder.Services.AddMvc().AddControllersAsServices();*/
 builder.Services
     .AddControllers()
     .AddApplicationPart(assembly)
+    .AddFluentValidation(config =>
+    {
+        config.RegisterValidatorsFromAssembly(typeof(Service).Assembly);
+    })
     .AddControllersAsServices();
 
 

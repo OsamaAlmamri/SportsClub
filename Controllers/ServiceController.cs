@@ -14,6 +14,7 @@ using AutoMapper;
 using SportsClub.Core.Pagination.Filter;
 using SportsClub.Core.Pagination.Services;
 using SportsClub.Core.Pagination.Helpers;
+using SportsClub.Core.Requests;
 
 namespace SportsClub.Controllers
 {
@@ -90,6 +91,8 @@ namespace SportsClub.Controllers
                 {
                     return BadRequest("Invalid model object");
                 }
+           
+                
                 _repostry.Create(service);
                 var re = _repostry.LastInserted();
 
@@ -123,11 +126,12 @@ namespace SportsClub.Controllers
                 {
                     return BadRequest("Invalid model object");
                 }
+                Service MyService = mapper.Map<Service>(service);
 
-                service.Id = id;
+                MyService.Id = id;
               
-                _repostry.Update(service);
-                return Ok(service);
+                _repostry.Update(MyService);
+                return Ok(MyService);
 
             }
             catch (Exception ex)
