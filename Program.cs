@@ -29,6 +29,7 @@ var mappingConfig = new MapperConfiguration(mc =>
 });
 
 IMapper mapper = mappingConfig.CreateMapper();
+builder.Services.AddScoped<IRepositoryBase<PaymentGatway>, PaymentGatwayRepostry>();
 builder.Services.AddScoped<IRepositoryBase<ServiceType>, ServiceTypeRepostry>();
 builder.Services.AddScoped<IRepositoryBase<ServiceTime>, ServiceTimeRepostry>();
 builder.Services.AddScoped<IRepositoryBase<Service>, ServiceRepostry>();
