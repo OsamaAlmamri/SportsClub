@@ -152,7 +152,7 @@ namespace SportsClub.Models
 
 
                 entity.HasOne(d => d.Service)
-                 .WithMany(p => p.UserServices)
+                 .WithMany(p => p.UserSubscriptionServices)
                  .HasForeignKey(d => d.ServiceId)
                  .HasConstraintName("UserService_services_type_id_foreign");
 

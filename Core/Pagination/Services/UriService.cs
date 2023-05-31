@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
-using CoreLib.Pagination.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SportsClub.Core.Pagination.Filter;
 
-namespace CoreLib.Pagination.Services
+namespace SportsClub.Core.Pagination.Services
 {
     public class UriService : IUriService
     {
@@ -14,9 +14,9 @@ namespace CoreLib.Pagination.Services
         {
             _baseUri = baseUri;
         }
-        public Uri GetPageUri(PaginationFilter filter ,string route)
+        public Uri GetPageUri(PaginationFilter filter, string route)
         {
-            var _enpointUri = new Uri(string.Concat(_baseUri ,route));
+            var _enpointUri = new Uri(string.Concat(_baseUri, route));
             var modifiedUri = QueryHelpers.AddQueryString(_enpointUri.ToString(), "pageNumber", filter.PageNumber.ToString());
             modifiedUri = QueryHelpers.AddQueryString(modifiedUri, "pageSize", filter.PageSize.ToString());
             return new Uri(modifiedUri);

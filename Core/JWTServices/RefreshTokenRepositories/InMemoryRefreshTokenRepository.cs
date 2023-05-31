@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CoreLib.JWTServices.RefreshTokenRepositories
+namespace SportsClub.Core.JWTServices.RefreshTokenRepositories
 {
     public class InMemoryRefreshTokenRepository : IRefreshTokenRepository
     {
@@ -12,7 +12,7 @@ namespace CoreLib.JWTServices.RefreshTokenRepositories
 
         public Task Create(RefreshToken refreshToken)
         {
-         //   refreshToken.Id = Guid.NewGuid();
+            //   refreshToken.Id = Guid.NewGuid();
 
             _refreshTokens.Add(refreshToken);
 
@@ -26,14 +26,14 @@ namespace CoreLib.JWTServices.RefreshTokenRepositories
             return Task.FromResult(refreshToken);
         }
 
-        public Task Delete(String id)
+        public Task Delete(string id)
         {
             _refreshTokens.RemoveAll(r => r.Id == id);
 
             return Task.CompletedTask;
         }
 
-        public Task DeleteAll(String userId)
+        public Task DeleteAll(string userId)
         {
             _refreshTokens.RemoveAll(r => r.UserId == userId);
 

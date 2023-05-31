@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace CoreLib.Pagination.Wrappers
+namespace SportsClub.Core.Pagination.Wrappers
 {
     public class Response<T>
     {

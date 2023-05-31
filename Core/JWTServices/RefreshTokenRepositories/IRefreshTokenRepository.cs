@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CoreLib.JWTServices.RefreshTokenRepositories
+namespace SportsClub.Core.JWTServices.RefreshTokenRepositories
 {
     public interface IRefreshTokenRepository
     {
@@ -12,8 +12,8 @@ namespace CoreLib.JWTServices.RefreshTokenRepositories
 
         Task Create(RefreshToken refreshToken);
 
-        Task Delete(String id);
+        Task Delete(string id);
 
-        Task DeleteAll(String userId);
+        Task DeleteAll(string userId);
     }
 }

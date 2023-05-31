@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CoreLib.Responses
+namespace SportsClub.Core.Responses
 {
     public class DataResponse
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CoreLib.JWTServices.TokenGenerators
+namespace SportsClub.Core.JWTServices.TokenGenerators
 {
     public class RefreshTokenGenerator
     {

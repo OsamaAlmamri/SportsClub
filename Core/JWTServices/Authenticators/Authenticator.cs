@@ -1,11 +1,11 @@
 ﻿using SportsClub.Models;
-using CoreLib.JWTServices.RefreshTokenRepositories;
-using CoreLib.JWTServices.TokenGenerators;
-using CoreLib.Responses;
 using System.Threading.Tasks;
 using System;
+using SportsClub.Core.JWTServices.RefreshTokenRepositories;
+using SportsClub.Core.JWTServices.TokenGenerators;
+using SportsClub.Core.Responses;
 
-namespace CoreLib.JWTServices.Authenticators
+namespace SportsClub.Core.JWTServices.Authenticators
 {
     public class Authenticator
     {
@@ -14,7 +14,7 @@ namespace CoreLib.JWTServices.Authenticators
         private readonly IRefreshTokenRepository _refreshTokenRepository;
 
         public Authenticator(AccessTokenGenerator accessTokenGenerator,
-            RefreshTokenGenerator refreshTokenGenerator, 
+            RefreshTokenGenerator refreshTokenGenerator,
             IRefreshTokenRepository refreshTokenRepository)
         {
             _accessTokenGenerator = accessTokenGenerator;

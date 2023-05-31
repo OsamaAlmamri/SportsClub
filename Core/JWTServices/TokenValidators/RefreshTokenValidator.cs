@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoreLib.JWTServices.TokenValidators
+namespace SportsClub.Core.JWTServices.TokenValidators
 {
     public class RefreshTokenValidator
     {

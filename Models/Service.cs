@@ -10,24 +10,21 @@ namespace SportsClub.Models
 
         public Service()
         {
-            UserServices = new HashSet<UserSubscriptionService>();
+            UserSubscriptionServices = new HashSet<UserSubscriptionService>();
         }
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public int Period { get; set; }
 
+        public long Id { get; set; }
+        public string? Name { get; set; }
+        public int Period { get; set; }
         public long ServiceTypeId { get; set; }
         public long? ServiceTimeId { get; set; }
-     
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public double Price { get; set; }
-
         public DateTime CreatedAt { get; set; }
 
-        public virtual ServiceType ServiceType { get; set; }
-        public virtual ServiceTime ServiceTime { get; set; }
-
-        public virtual ICollection<UserSubscriptionService> UserServices { get; set; }
+        public virtual ServiceTime? ServiceTime { get; set; }
+        public virtual ServiceType ServiceType { get; set; } = null!;
+        public virtual ICollection<UserSubscriptionService> UserSubscriptionServices { get; set; }
 
 
 

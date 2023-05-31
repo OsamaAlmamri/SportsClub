@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CoreLib.Pagination.Wrappers
+namespace SportsClub.Core.Pagination.Wrappers
 {
     public class PagedResponse<T> : Response<T>
     {
@@ -16,15 +16,15 @@ namespace CoreLib.Pagination.Wrappers
         public int TotalRecords { get; set; }
         public Uri NextPage { get; set; }
         public Uri PreviousPage { get; set; }
-        
-        public PagedResponse(T data, int pageNumber , int pageSize)
+
+        public PagedResponse(T data, int pageNumber, int pageSize)
         {
-            this.PageNumber = pageNumber;
-            this.PageSize = pageSize;
-            this.Data = data;
-            this.Message = null;
-            this.Succeeded = true;
-            this.Errors = null;
+            PageNumber = pageNumber;
+            PageSize = pageSize;
+            Data = data;
+            Message = null;
+            Succeeded = true;
+            Errors = null;
         }
     }
 }

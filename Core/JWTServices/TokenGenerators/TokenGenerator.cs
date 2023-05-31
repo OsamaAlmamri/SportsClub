@@ -7,11 +7,11 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoreLib.JWTServices.TokenGenerators
+namespace SportsClub.Core.JWTServices.TokenGenerators
 {
     public class TokenGenerator
     {
-        public string GenerateToken(string secretKey, string issuer, string audience, DateTime utcExpirationTime, 
+        public string GenerateToken(string secretKey, string issuer, string audience, DateTime utcExpirationTime,
             IEnumerable<Claim> claims = null)
         {
             SecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));

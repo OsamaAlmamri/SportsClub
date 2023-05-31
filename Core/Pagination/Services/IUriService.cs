@@ -1,10 +1,10 @@
-﻿using CoreLib.Pagination.Filter;
+﻿using SportsClub.Core.Pagination.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CoreLib.Pagination.Services
+namespace SportsClub.Core.Pagination.Services
 {
     public interface IUriService
     {

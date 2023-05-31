@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CoreLib.JWTServices.RefreshTokenRepositories
+namespace SportsClub.Core.JWTServices.RefreshTokenRepositories
 {
     public class DatabaseRefreshTokenRepository : IRefreshTokenRepository
     {
@@ -22,17 +22,17 @@ namespace CoreLib.JWTServices.RefreshTokenRepositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task Delete(String id)
+        public async Task Delete(string id)
         {
             RefreshToken refreshToken = await _context.RefreshTokens.FindAsync(id);
-            if(refreshToken != null)
+            if (refreshToken != null)
             {
                 _context.RefreshTokens.Remove(refreshToken);
                 await _context.SaveChangesAsync();
             }
         }
 
-        public async Task DeleteAll(String userId)
+        public async Task DeleteAll(string userId)
         {
             IEnumerable<RefreshToken> refreshTokens = await _context.RefreshTokens
                 .Where(t => t.UserId == userId)

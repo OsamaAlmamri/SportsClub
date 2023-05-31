@@ -8,7 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoreLib.JWTServices.TokenGenerators
+namespace SportsClub.Core.JWTServices.TokenGenerators
 {
     public class AccessTokenGenerator
     {
