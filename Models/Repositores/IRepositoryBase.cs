@@ -17,7 +17,7 @@ namespace SportsClub.Models.Repositores
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression); 
         T Find(Expression<Func<T, bool>> expression); 
         void Create(T entity); 
-        T LastInserted(); 
+        T LastInserted(Expression<Func<T, dynamic>> expression); 
         void Update(T entity); 
         void Delete(T entity);
     }

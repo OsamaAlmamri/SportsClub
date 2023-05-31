@@ -16,25 +16,6 @@ namespace SportsClub.Models.Repositores
         }
 
  
-        public void Create(ServiceType serviceType)
-        {
-            Create(serviceType);
-        }
-
-        public void Update(ServiceType serviceType)
-        {
-            Update(serviceType);
-        }
-
-        public void Delete(ServiceType serviceType)
-        {
-            Delete(serviceType);
-        }
-     
-        public override ServiceType LastInserted()
-        {
-            return RepositoryContext.ServiceTypes.OrderByDescending(a => a.Id).First();
-
-        }
+      
     }
 }

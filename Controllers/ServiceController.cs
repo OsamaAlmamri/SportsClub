@@ -28,11 +28,11 @@ namespace SportsClub.Controllers
         private readonly IRepositoryBase<Service> _repostry;
         private readonly IMapper mapper;
         private readonly IUriService uriService;
-        public ServiceController(IMapper mapper, IRepositoryBase<Service> repostry, SportsClubContext context, IUriService uriService)
+        public ServiceController(IMapper mapper,  SportsClubContext context, IUriService uriService)
         {
             this.context = context;
             this.uriService = uriService;
-            this._repostry = repostry;
+            this._repostry = new ServiceRepostry(context);
             this.mapper = mapper;
         }
      
@@ -43,38 +43,23 @@ namespace SportsClub.Controllers
             var route = Request.Path.Value;
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
             var pagedData = await _repostry.GetAllPage(filter, a => a.Id);
-
-            var totalRecords = await context.Services.CountAsync();
             var Result = mapper.Map<List<ServiceDto>>(pagedData);
+            var totalRecords = await context.Services.CountAsync();
             var pagedReponse = PaginationHelper.CreatePagedReponse<ServiceDto>(Result, validFilter, totalRecords, uriService, route);
             return Ok(pagedReponse);
         }
 
 
 
-        [HttpGet("all")]
-        public async Task<IActionResult> GetByParentCode()
-        {
-            var data = await context.Services.ToListAsync();
-
-            var ownerResult = mapper.Map<IEnumerable<ServiceDto>>(data);
-            return Ok(ownerResult);
-            //   return Ok(data);
-        }
+      
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var service = await context.Services.Where(a => a.Id == id)
-                .Include(s=>s.ServiceTime)
-                .Include(s=>s.ServiceType)
-                .FirstOrDefaultAsync();
+            var service =  _repostry.Find(a => a.Id == id);
             var ownerResult = mapper.Map<ServiceDto>(service);
             return Ok(ownerResult);
         }
-
-
-
 
 
         [HttpPost]
@@ -94,10 +79,9 @@ namespace SportsClub.Controllers
            
                 
                 _repostry.Create(service);
-                var re = _repostry.LastInserted();
-
-            
-                return Ok(re);
+                var re = _repostry.LastInserted(a => a.Id);
+                var ownerResult = mapper.Map<ServiceDto>(re);
+                return Ok(ownerResult);
 
             }
             catch (Exception ex)
@@ -126,12 +110,15 @@ namespace SportsClub.Controllers
                 {
                     return BadRequest("Invalid model object");
                 }
-                Service MyService = mapper.Map<Service>(service);
 
-                MyService.Id = id;
+
+                service.Id = id;
               
-                _repostry.Update(MyService);
-                return Ok(MyService);
+                _repostry.Update(service);
+
+                var ownerResult = mapper.Map<ServiceDto>(service);
+                return Ok(ownerResult);
+     
 
             }
             catch (Exception ex)

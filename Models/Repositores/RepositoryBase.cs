@@ -16,36 +16,36 @@ namespace SportsClub.Models.Repositores
             RepositoryContext = repositoryContext; 
         } 
         
-        public IQueryable<T> FindAll() 
+        public virtual IQueryable<T> FindAll() 
         { 
             return RepositoryContext.Set<T>().AsNoTracking(); 
         } 
         
-        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
+        public virtual IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         { 
             return RepositoryContext.Set<T>().Where(expression).AsNoTracking();
         }
         
 
 
-        public void  Create(T entity) 
+        public virtual void  Create(T entity) 
         { 
             RepositoryContext.Set<T>().Add(entity);
             RepositoryContext.SaveChanges();
          
         } 
         
-        public void Update(T entity) 
+        public virtual void Update(T entity) 
         {
             RepositoryContext.Set<T>().Update(entity);
             RepositoryContext.SaveChanges();
         } 
-        public void pagenation(T entity) 
+        public virtual void pagenation(T entity) 
         {
             RepositoryContext.Set<T>().Update(entity);
         }
         //.OrderByDescending(a => a.Id).
-        public async Task<List<T>> GetAllPage(PaginationFilter filter, Expression<Func<T, long>> Orderexpression) 
+        public virtual  async Task<List<T>> GetAllPage(PaginationFilter filter, Expression<Func<T, long>> Orderexpression) 
        {
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
             return await RepositoryContext.Set<T>()
@@ -56,18 +56,23 @@ namespace SportsClub.Models.Repositores
                .ToListAsync();
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         { 
             RepositoryContext.Set<T>().Remove(entity);
             RepositoryContext.SaveChanges();
         }
 
       
-        public abstract T LastInserted();
+        public virtual T LastInserted(Expression<Func<T, dynamic>> expression)
+        {
+            return RepositoryContext.Set<T>().OrderByDescending(expression).First();
+        }
 
-        public T Find(Expression<Func<T, bool>> expression)
+        public virtual T Find(Expression<Func<T, bool>> expression)
         {
             return RepositoryContext.Set<T>().Where(expression).AsNoTracking().FirstOrDefault();
+
+         
         }
 
     }

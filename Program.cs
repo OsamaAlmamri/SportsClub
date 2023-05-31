@@ -29,16 +29,17 @@ var mappingConfig = new MapperConfiguration(mc =>
 });
 
 IMapper mapper = mappingConfig.CreateMapper();
+builder.Services.AddScoped<IRepositoryBase<ServiceType>, ServiceTypeRepostry>();
+builder.Services.AddScoped<IRepositoryBase<ServiceTime>, ServiceTimeRepostry>();
+builder.Services.AddScoped<IRepositoryBase<Service>, ServiceRepostry>();
+builder.Services.AddScoped<IUserAuthenticationRepository, UserAuthenticationRepository>();
+
 
 builder.Services.AddDbContext<SportsClubContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlCon2022"));
 });
 
-builder.Services.AddScoped<IRepositoryBase<ServiceType>, ServiceTypeRepostry>();
-builder.Services.AddScoped<IRepositoryBase<ServiceTime>, ServiceTimeRepostry>();
-builder.Services.AddScoped<IRepositoryBase<Service>, ServiceRepostry>();
-builder.Services.AddScoped<IUserAuthenticationRepository, UserAuthenticationRepository>();
 
 
 builder.Services.AddHttpContextAccessor();

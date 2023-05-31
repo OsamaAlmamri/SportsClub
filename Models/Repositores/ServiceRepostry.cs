@@ -16,7 +16,7 @@ namespace SportsClub.Models.Repositores
         { 
         }
 
-        public async Task<List<Service>> GetAllPage(PaginationFilter filter, Expression<Func<Service , long>> Orderexpression)
+        public override  async Task<List<Service>> GetAllPage(PaginationFilter filter, Expression<Func<Service , long>> Orderexpression)
         {
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
             return await RepositoryContext.Set<Service>()
@@ -24,29 +24,31 @@ namespace SportsClub.Models.Repositores
             .Include(s => s.ServiceType)
                .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
                .Take(validFilter.PageSize)
-
-               .ToListAsync();
+               .ToListAsync();           
         }
 
-        public void Create(Service service)
+        public override Service Find(Expression<Func<Service, bool>> expression)
         {
-            Create(service);
+            return RepositoryContext.Set<Service>()
+                .Where(expression)
+                .Include(s => s.ServiceTime)
+                .Include(s => s.ServiceType)
+                .FirstOrDefault();
+
+        
+        }
+        public override Service LastInserted(Expression<Func<Service, dynamic>> expression)
+        {
+       
+            return RepositoryContext.Set<Service>()
+                  .Include(s => s.ServiceTime)
+                .Include(s => s.ServiceType)
+                .OrderByDescending(expression).First();
+               
+
+        
         }
 
-        public void Update(Service service)
-        {
-            Update(service);
-        }
 
-        public void Delete(Service service)
-        {
-            Delete(service);
-        }
-     
-        public override Service LastInserted()
-        {
-            return RepositoryContext.Services.OrderByDescending(a => a.Id).First();
-
-        }
     }
 }

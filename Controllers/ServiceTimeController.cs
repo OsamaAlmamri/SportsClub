@@ -52,9 +52,9 @@ namespace SportsClub.Controllers
 
 
         [HttpGet("all")]
-        public async Task<IActionResult> GetByParentCode()
+        public async Task<IActionResult> GetByAll()
         {
-            var data = await context.ServiceTimes.ToListAsync();
+            var data = _repostry.FindAll();
 
             var ownerResult = mapper.Map<IEnumerable<ServiceTimeDto>>(data);
             return Ok(ownerResult);
@@ -64,8 +64,9 @@ namespace SportsClub.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var serviceTime = await context.ServiceTimes.Where(a => a.Id == id).FirstOrDefaultAsync();
-            return Ok(new Response<ServiceTime>(serviceTime));
+            var serviceTime =  _repostry.Find(a => a.Id == id); ;
+            var ownerResult = mapper.Map<ServiceTimeDto>(serviceTime);
+            return Ok(ownerResult);
         }
 
 
@@ -87,10 +88,10 @@ namespace SportsClub.Controllers
                     return BadRequest("Invalid model object");
                 }
                 _repostry.Create(serviceTime);
-                var re = _repostry.LastInserted();
+                var re = _repostry.LastInserted(a=>a.Id);
 
-            
-                return Ok(re);
+                var ownerResult = mapper.Map<ServiceTimeDto>(re);
+                return Ok(ownerResult);
 
             }
             catch (Exception ex)
@@ -123,7 +124,9 @@ namespace SportsClub.Controllers
                 serviceTime.Id = id;
               
                 _repostry.Update(serviceTime);
-                return Ok(serviceTime);
+              
+                var ownerResult = mapper.Map<ServiceTimeDto>(serviceTime);
+                return Ok(ownerResult);
 
             }
             catch (Exception ex)

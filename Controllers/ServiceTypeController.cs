@@ -34,7 +34,7 @@ namespace SportsClub.Controllers
             this._repostry = repostry;
             this.mapper = mapper;
         }
-     
+
 
         public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter)
         {
@@ -52,9 +52,9 @@ namespace SportsClub.Controllers
 
 
         [HttpGet("all")]
-        public async Task<IActionResult> GetByParentCode()
+        public async Task<IActionResult> GetByAll()
         {
-            var data = await context.ServiceTypes.ToListAsync();
+            var data = _repostry.FindAll();
 
             var ownerResult = mapper.Map<IEnumerable<ServiceTypeDto>>(data);
             return Ok(ownerResult);
@@ -64,8 +64,9 @@ namespace SportsClub.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var serviceType = await context.ServiceTypes.Where(a => a.Id == id).FirstOrDefaultAsync();
-            return Ok(new Response<ServiceType>(serviceType));
+            var serviceType = _repostry.Find(a => a.Id == id); ;
+            var ownerResult = mapper.Map<ServiceTypeDto>(serviceType);
+            return Ok(ownerResult);
         }
 
 
@@ -87,10 +88,10 @@ namespace SportsClub.Controllers
                     return BadRequest("Invalid model object");
                 }
                 _repostry.Create(serviceType);
-                var re = _repostry.LastInserted();
+                var re = _repostry.LastInserted(a => a.Id);
 
-            
-                return Ok(re);
+                var ownerResult = mapper.Map<ServiceTypeDto>(re);
+                return Ok(ownerResult);
 
             }
             catch (Exception ex)
@@ -121,9 +122,11 @@ namespace SportsClub.Controllers
                 }
 
                 serviceType.Id = id;
-              
+
                 _repostry.Update(serviceType);
-                return Ok(serviceType);
+
+                var ownerResult = mapper.Map<ServiceTypeDto>(serviceType);
+                return Ok(ownerResult);
 
             }
             catch (Exception ex)

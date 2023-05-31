@@ -16,25 +16,6 @@ namespace SportsClub.Models.Repositores
         }
 
  
-        public void Create(ServiceTime serviceTime)
-        {
-            Create(serviceTime);
-        }
-
-        public void Update(ServiceTime serviceTime)
-        {
-            Update(serviceTime);
-        }
-
-        public void Delete(ServiceTime serviceTime)
-        {
-            Delete(serviceTime);
-        }
-     
-        public override ServiceTime LastInserted()
-        {
-            return RepositoryContext.ServiceTimes.OrderByDescending(a => a.Id).First();
-
-        }
+        
     }
 }
