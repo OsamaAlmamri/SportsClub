@@ -12,7 +12,7 @@ namespace SportsClub.Models.Repositores
         //      IList<T> List();
 
         //     IList<T> Search(string term);
-        public Task<List<T>> GetAllPage(PaginationFilter filter, Expression<Func<T,long>> Orderexpression);
+        public Task<List<T>> GetAllPage(PaginationFilter filter, Expression<Func<T,dynamic>> Orderexpression);
         IQueryable<T> FindAll(); 
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression); 
         T Find(Expression<Func<T, bool>> expression); 

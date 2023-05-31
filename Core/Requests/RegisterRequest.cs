@@ -12,6 +12,8 @@ namespace SportsClub.Core.Requests
         [EmailAddress]
         public string Email { get; set; }
 
+
+
         [Required]
         public string UserName { get; set; }
 
@@ -20,5 +22,11 @@ namespace SportsClub.Core.Requests
 
         [Required]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        public string FullName { get; set; }
+        public string? Address { get; set; }
+        public string? PhoneNumber { get; set; }
+        public DateTime BirthDate { get; set; }
     }
 }

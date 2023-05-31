@@ -16,7 +16,7 @@ namespace SportsClub.Models.Repositores
         { 
         }
 
-        public override  async Task<List<Service>> GetAllPage(PaginationFilter filter, Expression<Func<Service , long>> Orderexpression)
+        public override  async Task<List<Service>> GetAllPage(PaginationFilter filter, Expression<Func<Service , dynamic>> Orderexpression)
         {
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
             return await RepositoryContext.Set<Service>()

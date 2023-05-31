@@ -32,6 +32,7 @@ internal sealed class UserAuthenticationRepository : IUserAuthenticationReposito
             Id = Guid.NewGuid().ToString(),
             UserName = userRegistration.UserName,
             Email = userRegistration.Email,
+            PhoneNumber = userRegistration.PhoneNumber,
 
         };
 

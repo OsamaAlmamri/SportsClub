@@ -32,6 +32,8 @@ IMapper mapper = mappingConfig.CreateMapper();
 builder.Services.AddScoped<IRepositoryBase<ServiceType>, ServiceTypeRepostry>();
 builder.Services.AddScoped<IRepositoryBase<ServiceTime>, ServiceTimeRepostry>();
 builder.Services.AddScoped<IRepositoryBase<Service>, ServiceRepostry>();
+builder.Services.AddScoped<IRepositoryBase<UserDetail>, UserDetailRepostry>();
+builder.Services.AddScoped<IRepositoryBase<User>, UserRepostry>();
 builder.Services.AddScoped<IUserAuthenticationRepository, UserAuthenticationRepository>();
 
 

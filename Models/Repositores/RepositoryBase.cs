@@ -45,7 +45,7 @@ namespace SportsClub.Models.Repositores
             RepositoryContext.Set<T>().Update(entity);
         }
         //.OrderByDescending(a => a.Id).
-        public virtual  async Task<List<T>> GetAllPage(PaginationFilter filter, Expression<Func<T, long>> Orderexpression) 
+        public virtual  async Task<List<T>> GetAllPage(PaginationFilter filter, Expression<Func<T, dynamic>> Orderexpression) 
        {
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
             return await RepositoryContext.Set<T>()
