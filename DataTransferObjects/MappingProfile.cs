@@ -16,7 +16,10 @@ namespace SportsClub.DataTransferObjects
             CreateMap<ServiceTime, ServiceTimeDto>();
             CreateMap<Service, ServiceDto>()
                
-                .ForMember(v => v.ServiceTypeName, opt => opt.MapFrom(vr => vr.ServiceType.Name));
+                .ForMember(v => v.ServiceTypeName, opt => opt.MapFrom(vr => vr.ServiceType.Name))
+                .ForMember(v => v.ServiceTypeName, opt => opt.MapFrom(vr => vr.ServiceType.Name))
+                .ForMember(v => v.FromTime, opt => opt.MapFrom(vr => vr.ServiceTime.FromTime))
+                .ForMember(v => v.ToTime, opt => opt.MapFrom(vr => vr.ServiceTime.ToTime));
             CreateMap<UserDetail, UserDetailDto>();
             CreateMap<User, UserDto>();
             CreateMap<UserSubscription, UserSubscriptionDto>();

@@ -64,8 +64,12 @@ namespace SportsClub.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var service = await context.Services.Where(a => a.Id == id).FirstOrDefaultAsync();
-            return Ok(new Response<Service>(service));
+            var service = await context.Services.Where(a => a.Id == id)
+                .Include(s=>s.ServiceTime)
+                .Include(s=>s.ServiceType)
+                .FirstOrDefaultAsync();
+            var ownerResult = mapper.Map<ServiceDto>(service);
+            return Ok(ownerResult);
         }
 
 

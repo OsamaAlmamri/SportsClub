@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using SportsClub.Core.Pagination.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,18 @@ namespace SportsClub.Models.Repositores
         { 
         }
 
- 
+        public async Task<List<Service>> GetAllPage(PaginationFilter filter, Expression<Func<Service , long>> Orderexpression)
+        {
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            return await RepositoryContext.Set<Service>()
+            .Include(s=>s.ServiceTime)
+            .Include(s => s.ServiceType)
+               .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+               .Take(validFilter.PageSize)
+
+               .ToListAsync();
+        }
+
         public void Create(Service service)
         {
             Create(service);

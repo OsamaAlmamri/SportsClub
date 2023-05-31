@@ -64,6 +64,7 @@ x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandli
 
 
 AuthenticationConfiguration authenticationConfiguration = new AuthenticationConfiguration();
+//_configuration.Bind("Authentication", authenticationConfiguration);
 var assembly = typeof(Program).Assembly; ;
 /*
 builder.Services.AddMvc().AddControllersAsServices();*/
@@ -73,7 +74,9 @@ builder.Services
     .AddApplicationPart(assembly)
     .AddControllersAsServices();
 
-builder.Services.AddSingleton(authenticationConfiguration);
+
+
+//builder.Services.AddSingleton(authenticationConfiguration);
 builder.Services.AddSingleton<AccessTokenGenerator>();
 builder.Services.AddSingleton<RefreshTokenGenerator>();
 builder.Services.AddSingleton<RefreshTokenValidator>();
@@ -108,6 +111,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseEndpoints(x => x.MapControllers());
 app.MapControllerRoute(

@@ -15,6 +15,10 @@ namespace SportsClub.DataTransferObjects
 
         public string Description { get; set; }
         public string ServiceTypeName { get; set; }
+        public string ServiceTimeName { get; set; }
+        public TimeSpan FromTime { get; set; }
+
+        public TimeSpan ToTime { get; set; }
         public double Price { get; set; }
 
         public DateTime CreatedAt { get; set; }

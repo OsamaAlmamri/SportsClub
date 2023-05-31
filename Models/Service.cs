@@ -22,7 +22,7 @@ namespace SportsClub.Models
         public double Price { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public virtual ServiceTime? ServiceTime { get; set; }
+        public virtual ServiceTime ServiceTime { get; set; }
         public virtual ServiceType ServiceType { get; set; } = null!;
         public virtual ICollection<UserSubscriptionService> UserSubscriptionServices { get; set; }
 
