@@ -3,7 +3,7 @@ using System;
 
 namespace SportsClub.DataTransferObjects
 {
-    public class UserSubscriptionDto
+    public class UserSubscriptionDetailsDto
     {
 
         public long Id { get; set; }
@@ -17,6 +17,10 @@ namespace SportsClub.DataTransferObjects
         public string Currency { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+        public UserSubscriptionServiceDto Services { get; set; }
+        public UserSubscriptionPaymentGatway payments { get; set; }
+        public UserDto User { get; set; }
 
 
     }

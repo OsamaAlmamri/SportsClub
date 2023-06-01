@@ -49,9 +49,9 @@ namespace SportsClub.Controllers
             var route = Request.Path.Value;
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
             var pagedData = await _repostry.GetAllPage(filter, a => a.Id);
-            var Result = mapper.Map<List<UserSubscriptionDto>>(pagedData);
+            var Result = mapper.Map<List<UserSubscriptionDetailsDto>>(pagedData);
             var totalRecords = await context.UserSubscriptions.CountAsync();
-            var pagedReponse = PaginationHelper.CreatePagedReponse<UserSubscriptionDto>(Result, validFilter, totalRecords, uriService, route);
+            var pagedReponse = PaginationHelper.CreatePagedReponse<UserSubscriptionDetailsDto>(Result, validFilter, totalRecords, uriService, route);
             return Ok(pagedReponse);
         }
 
@@ -65,7 +65,7 @@ namespace SportsClub.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var userSubscription = _repostry.Find(a => a.Id == id);
-            var ownerResult = mapper.Map<UserSubscriptionDto>(userSubscription);
+            var ownerResult = mapper.Map<UserSubscriptionDetailsDto>(userSubscription);
               
 
             // Return the user ID.

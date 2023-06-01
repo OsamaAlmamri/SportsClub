@@ -21,6 +21,7 @@ namespace SportsClub.Models.Repositores
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
             return await RepositoryContext.Set<UserSubscription>()
             .Include(s => s.User)
+            .Include(s => s.UserSubscriptionServices)
             .Include(s => s.UserServicePaymentGatways)
                .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
                .Take(validFilter.PageSize)
@@ -32,6 +33,7 @@ namespace SportsClub.Models.Repositores
             return RepositoryContext.Set<UserSubscription>()
                 .Where(expression)
                 .Include(s => s.User)
+                      .Include(s => s.UserSubscriptionServices)
                 .Include(s => s.UserServicePaymentGatways)
                 .FirstOrDefault();
 
@@ -43,6 +45,7 @@ namespace SportsClub.Models.Repositores
             return RepositoryContext.Set<UserSubscription>()
                  .Include(s => s.User)
             .Include(s => s.UserServicePaymentGatways)
+                  .Include(s => s.UserSubscriptionServices)
                 .OrderByDescending(expression).First();
 
 
