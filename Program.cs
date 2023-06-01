@@ -16,6 +16,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpContextAccessor(); 
 
 
 // Add services to the container.
@@ -29,6 +30,7 @@ var mappingConfig = new MapperConfiguration(mc =>
 });
 
 IMapper mapper = mappingConfig.CreateMapper();
+builder.Services.AddScoped<IRepositoryBase<UserSubscription>, UserSubscriptionRepostry>();
 builder.Services.AddScoped<IRepositoryBase<PaymentGatway>, PaymentGatwayRepostry>();
 builder.Services.AddScoped<IRepositoryBase<ServiceType>, ServiceTypeRepostry>();
 builder.Services.AddScoped<IRepositoryBase<ServiceTime>, ServiceTimeRepostry>();

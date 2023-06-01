@@ -68,7 +68,9 @@ internal sealed class UserAuthenticationRepository : IUserAuthenticationReposito
     {
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, _user.UserName)
+           
+            new Claim(ClaimTypes.Name, _user.UserName),
+            new Claim(ClaimTypes.Email, _user.Email)
         };
         var roles = await _userManager.GetRolesAsync(_user);
         foreach (var role in roles)
