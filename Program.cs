@@ -83,6 +83,7 @@ builder.Services
     .AddFluentValidation(config =>
     {
         config.RegisterValidatorsFromAssembly(typeof(Service).Assembly);
+        config.RegisterValidatorsFromAssembly(typeof(UserSubscriptionRequest).Assembly);
     })
     .AddControllersAsServices();
 

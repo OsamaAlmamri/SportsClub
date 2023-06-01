@@ -70,7 +70,8 @@ internal sealed class UserAuthenticationRepository : IUserAuthenticationReposito
         {
            
             new Claim(ClaimTypes.Name, _user.UserName),
-            new Claim(ClaimTypes.Email, _user.Email)
+            new Claim(ClaimTypes.Email, _user.Email),
+            new Claim(ClaimTypes.PrimarySid, _user.Id)
         };
         var roles = await _userManager.GetRolesAsync(_user);
         foreach (var role in roles)
