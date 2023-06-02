@@ -24,7 +24,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace SportsClub.Controllers
 {
     [ApiController, Authorize]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserSubscriptionsController : ControllerBase
     {
 

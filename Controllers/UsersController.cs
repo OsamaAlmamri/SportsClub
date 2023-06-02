@@ -19,7 +19,7 @@ using SportsClub.Core.Requests;
 namespace SportsClub.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
 

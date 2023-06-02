@@ -16,6 +16,15 @@ namespace SportsClub.Models.Repositores
         { 
         }
 
+
+        public override IQueryable<Service> FindAll()
+        {
+            //    return RepositoryContext.Set<T>().AsNoTracking();
+            return  RepositoryContext.Set<Service>()
+            .Include(s => s.ServiceTime)
+            .Include(s => s.ServiceType).AsNoTracking();
+        }
+
         public override  async Task<List<Service>> GetAllPage(PaginationFilter filter, Expression<Func<Service , dynamic>> Orderexpression)
         {
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);

@@ -18,7 +18,7 @@ using SportsClub.Core.Pagination.Helpers;
 namespace SportsClub.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ServiceTypeController : ControllerBase
     {
 

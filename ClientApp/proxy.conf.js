@@ -12,6 +12,15 @@ const PROXY_CONFIG = [
     secure: false,
     headers: {
       Connection: 'Keep-Alive'
+    },
+   
+
+    bypass: function (req, res, proxyOptions) {
+      if (!req.originalUrl.includes('api')) {
+        console.log('Skipping proxy for browser request.');
+       return '/index.html';
+      }
+      req.headers['X-Custom-Header'] = 'yes';
     }
   }
 ]

@@ -1,0 +1,11 @@
+<!-- cart.component.html -->
+<h2>Cart</h2>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let item of cartItems">
+    {{ item.name }} - Quantity: {{ item.quantity }}
+    <button class="btn btn-danger btn-sm" (click)="removeFromCart(item)">Remove</button>
+  </li>
+</ul>
+<div class="total-price">
+  <p>Total Price: {{ getTotalPrice() }}</p>
+</div>

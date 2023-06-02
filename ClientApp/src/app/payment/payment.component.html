@@ -1,0 +1,8 @@
+<div *ngIf="type==null">
+  <button (click)="initiatePayment()">Pay with PayPal</button>
+</div>
+
+<div *ngIf="type!=null">
+  <p>Payment Complete!</p>
+  <!-- Additional content or success message -->
+</div>

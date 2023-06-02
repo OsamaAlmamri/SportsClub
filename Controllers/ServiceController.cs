@@ -19,7 +19,7 @@ using SportsClub.Core.Requests;
 namespace SportsClub.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ServiceController : ControllerBase
     {
 
@@ -50,14 +50,25 @@ namespace SportsClub.Controllers
         }
 
 
+        [HttpGet("all")]
+        public async Task<IActionResult> GetByAll()
+        {
+            var data = _repostry.FindAll();
 
-      
+           
+            var Result = mapper.Map<List<ServiceDto>>(data);
+            return Ok(Result);
+            //   return Ok(data);
+        }
+
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var service =  _repostry.Find(a => a.Id == id);
             var ownerResult = mapper.Map<ServiceDto>(service);
+
             return Ok(ownerResult);
         }
 

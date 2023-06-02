@@ -12,17 +12,18 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using SportsClub.Core.Payments;
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddHttpContextAccessor(); 
-
+builder.Services.AddHttpContextAccessor();
 
 // Add services to the container.
 builder.Services.AddAutoMapper(typeof(Program));
 //builder.Services.AddControllersWithViews();
-
+builder.Services.AddCors();
 var mappingConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new MappingProfile());
@@ -87,7 +88,14 @@ builder.Services
     })
     .AddControllersAsServices();
 
-
+// paypal client configuration
+/*builder.Services.AddSingleton(x =>
+    new PaypalClient(
+        builder.Configuration["PayPalOptions:ClientId"],
+        builder.Configuration["PayPalOptions:ClientSecret"],
+        builder.Configuration["PayPalOptions:Mode"]
+    )
+);*/
 
 
 var app = builder.Build();
@@ -102,6 +110,12 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+//app.UseCors(MyAllowSpecificOrigins);
+
+app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 
 app.UseAuthentication();
 app.UseAuthorization();
