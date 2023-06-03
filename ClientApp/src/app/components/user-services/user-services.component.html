@@ -1,0 +1,37 @@
+<div *ngIf="show"  >
+
+  <h5>user-services  :  <span *ngIf="isHaveTime()" class="text-success"> *[user has time  ]</span></h5>
+  <div *ngIf="userServices.length === 0 ">
+    No Sevices  found.  
+  </div>
+
+
+
+  <table *ngIf="userServices.length > 0"  class="table ">
+    <thead>
+      <tr>
+        <th> service</th>
+        <th> time </th>
+        <th> start at  </th>
+        <th> period  </th>
+        <th> end  at  </th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let service of userServices"  [ngClass]="{  'table-warning': service.endAt==null  ,  'table-danger' : isEndDate( service.endAt) && service.endAt!=null ,  'table-success' : !isEndDate( service.endAt)&& service.endAt!=null }"  >
+        <td> {{service.service.serviceTypeName}}  </td>
+        <td>  <span  *ngIf="service.service.serviceTimeId > 0" >{{service.service.serviceTimeName}}  [ {{service.service.fromTime}} - {{service.service.toTime}}] </span>
+              <span *ngElse>
+                Not specified
+              </span>
+
+        </td>
+        <td>  {{service.startAt}}   </td>
+        <td>  {{service.service.period}}   </td>
+        <td>  {{service.endAt}}   </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

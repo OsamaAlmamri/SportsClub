@@ -22,7 +22,9 @@ namespace SportsClub.Models.Repositores
             //    return RepositoryContext.Set<T>().AsNoTracking();
             return  RepositoryContext.Set<Service>()
             .Include(s => s.ServiceTime)
-            .Include(s => s.ServiceType).AsNoTracking();
+            .Include(s => s.ServiceType)
+            .OrderByDescending(s => s.Id)
+            .AsNoTracking();
         }
 
         public override  async Task<List<Service>> GetAllPage(PaginationFilter filter, Expression<Func<Service , dynamic>> Orderexpression)

@@ -1,0 +1,22 @@
+<h1>User Search</h1>
+
+<div class="form-group">
+  <label for="searchTerm">Search by Name or Email:</label>
+  <input type="text" id="searchTerm" class="form-control" [(ngModel)]="searchTerm" placeholder="Enter name or email">
+</div>
+
+<button class="btn btn-primary" (click)="searchUsers()">Search</button>
+
+
+<div *ngIf="users.length === 0 && searchPerformed">
+  No users found.
+</div>
+
+
+<div *ngIf="users.length > 0" class="row row-cols-2 row-cols-md-4  cols-lg-4 g-4">
+  <div class="col" *ngFor="let user of users">
+    <app-user  (onSearchServices)="SearchServices(user.id)" [user]="user">  </app-user>
+  </div>
+  </div>
+
+<app-user-services [userServices]="userServices" [show]="showServices"  ></app-user-services>

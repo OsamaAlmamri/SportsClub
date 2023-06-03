@@ -74,11 +74,11 @@ namespace SportsClub.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Service service)
+        public async Task<IActionResult> Create([FromBody] ServiceRequest serviceRequerst)
         {
             try
             {
-                if (service == null)
+                if (serviceRequerst == null)
                 {
                     return BadRequest("service object is null");
                 }
@@ -87,8 +87,19 @@ namespace SportsClub.Controllers
                 {
                     return BadRequest("Invalid model object");
                 }
-           
-                
+
+                var service = new Service()
+                {
+                    ServiceTypeId = serviceRequerst.ServiceTypeId,
+                    ServiceTimeId = serviceRequerst.ServiceTimeId,
+                    Description=serviceRequerst.Description,
+                    Period=serviceRequerst.Period,
+                    Price=serviceRequerst.Price,
+                    Name=serviceRequerst.Name,
+
+                };
+
+
                 _repostry.Create(service);
                 var re = _repostry.LastInserted(a => a.Id);
                 var ownerResult = mapper.Map<ServiceDto>(re);
@@ -103,16 +114,15 @@ namespace SportsClub.Controllers
 
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> Update(long id, [FromBody] Service service)
+        public async Task<IActionResult> Update(long id, [FromBody] ServiceRequest serviceRequerst)
         {
             try
             {
 
 
-                // return Ok(service);
-
-                var re = _repostry.Find(e => e.Id == id);
-                if (service == null)
+         
+                var service = _repostry.Find(e => e.Id == id);
+                if (serviceRequerst == null)
                 {
                     return BadRequest("service object is null");
                 }
@@ -124,11 +134,21 @@ namespace SportsClub.Controllers
 
 
                 service.Id = id;
+                service.ServiceTypeId = serviceRequerst.ServiceTypeId;
+                service.ServiceTimeId = serviceRequerst.ServiceTimeId;
+                service.Description = serviceRequerst.Description;
+                service.Period = serviceRequerst.Period;
+                service.Price = serviceRequerst.Price;
+                service.Name = serviceRequerst.Name;
+
+               
+
+
               
                 _repostry.Update(service);
 
-                var ownerResult = mapper.Map<ServiceDto>(service);
-                return Ok(ownerResult);
+               var serviceDto = mapper.Map<ServiceDto>(service);
+                return Ok(serviceDto);
      
 
             }

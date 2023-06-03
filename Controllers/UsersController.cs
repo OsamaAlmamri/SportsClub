@@ -53,6 +53,18 @@ namespace SportsClub.Controllers
 
 
 
+        [HttpGet("search")]
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            var pagedData = _repostry.FindByCondition(a => a.Email.Contains(searchTerm)  || a.UserName.Contains(searchTerm) || a.UserDetail.FullName.Contains(searchTerm));
+            var Result = mapper.Map<List<UserDto>>(pagedData);
+            return Ok(Result);
+
+        
+        }
+
+
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
@@ -60,6 +72,8 @@ namespace SportsClub.Controllers
             var ownerResult = mapper.Map<UserDto>(user);
             return Ok(ownerResult);
         }
+
+
 
 
     }

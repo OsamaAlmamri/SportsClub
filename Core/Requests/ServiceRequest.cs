@@ -7,7 +7,22 @@ using FluentValidation;
 namespace SportsClub.Core.Requests
 {
 
-    public partial class  ServiceForignKeysValidator : AbstractValidator<Service>
+    public  class  ServiceRequest
+    {
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public int Period { get; set; }
+        [Required]
+        public long ServiceTypeId { get; set; }
+        [Required]
+        public long? ServiceTimeId { get; set; }
+
+        public string? Description { get; set; }
+        [Required]
+        public double Price { get; set; }
+    }
+    public partial class ServiceForignKeysValidator : AbstractValidator<ServiceRequest>
     {
         public ServiceForignKeysValidator(SportsClubContext database)
         {

@@ -1,0 +1,24 @@
+
+  <div class="card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWUDBFLYupjpJvfVvwttTATboTnd3Ufvd0eQ&usqp=CAU" class="card-img-top" alt="{{user.userName}}">
+    <div class="card-body">
+      <h5 class="card-title">
+        {{user.userName}}
+      </h5>
+      <h6 class="card-title">
+        {{user.email}}
+      </h6>
+      <h6 class="card-title">
+        {{user.phoneNumber}}
+      </h6>
+      <p class="card-text">
+        {{user.address}}
+      </p>
+      <div class="card-footer d-grid">
+        <button class="btn btn-primary btn-sm" (click)="getUserSubscriptionServices(user.id)" type="button">view</button>
+      </div>
+    </div>
+  </div>
+
+
+

@@ -1,0 +1,60 @@
+<form #serviceForm="ngForm" (ngSubmit)="saveService()">
+  <div class="form-group">
+    <label for="Name">Service Name</label>
+    <input type="text" class="form-control" id="Name" name="Name" required [(ngModel)]="service.Name">
+    <div *ngIf="serviceForm.controls.Name.invalid && (serviceForm.controls.Name.dirty || serviceForm.controls.Name.touched)">
+      <small class="text-danger" *ngIf="serviceForm.controls.Name.errors.required">Service name is required.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="Period">Service Period (in days)</label>
+    <input type="number" class="form-control" id="Period" name="Period" required [(ngModel)]="service.Period" min="1">
+    <div *ngIf="serviceForm.controls.Period.invalid && (serviceForm.controls.Period.dirty || serviceForm.controls.Period.touched)">
+      <small class="text-danger" *ngIf="serviceForm.controls.Period.errors.required">Service Period is required.</small>
+      <small class="text-danger" *ngIf="serviceForm.controls.Period.errors.min">Service Period should be at least 1 day.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="Period">Service Price (in USA)</label>
+    <input type="number" class="form-control" id="Price" name="Price" required [(ngModel)]="service.Price" min="1">
+    <div *ngIf="serviceForm.controls.Price.invalid && (serviceForm.controls.Period.dirty || serviceForm.controls.Price.touched)">
+      <small class="text-danger" *ngIf="serviceForm.controls.Price.errors.required">Service Price is required.</small>
+      <small class="text-danger" *ngIf="serviceForm.controls.Price.errors.min">Service Price should be at least 1 day.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="ServiceTypeId">Service Type</label>
+    <select class="form-control" id="ServiceTypeId" name="ServiceTypeId" required [(ngModel)]="service.ServiceTypeId">
+      <option value="">Select Service Type</option>
+      <option   *ngFor="let serviceType of serviceTypes" value="{{serviceType.id}}"> {{serviceType.name }} </option>
+
+    </select>
+    <div *ngIf="serviceForm.controls.ServiceTypeId.invalid && (serviceForm.controls.ServiceTypeId.dirty || serviceForm.controls.ServiceTypeId.touched)">
+      <small class="text-danger" *ngIf="serviceForm.controls.ServiceTypeId.errors.required">Service type is required.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="ServiceTimeId">Time Type</label>
+    <select class="form-control" id="ServiceTimeId" name="ServiceTimeId"  [(ngModel)]="service.ServiceTimeId">
+      <option value="">Select Time Type</option>
+      <option   *ngFor="let serviceTime of serviceTimes" value="{{serviceTime.id}}"> {{serviceTime.name }} [{{serviceTime.fromTime}} - {{serviceTime.toTime}}] </option>
+
+    </select>
+
+  </div>
+
+  <div class="form-group">
+    <label for="Description">Comment:</label>
+    <textarea  [(ngModel)]="service.Description" class="form-control" name="Description" required rows="5" id="Description"></textarea>
+    <div *ngIf="serviceForm.controls.Description.invalid && (serviceForm.controls.Description.dirty || serviceForm.controls.Description.touched)">
+      <small class="text-danger" *ngIf="serviceForm.controls.Description.errors.required">Service Description is required.</small>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="serviceForm.invalid">
+    <span *ngIf="editId==0">Save</span> <span *ngIf="editId>0"> Update</span>
+    </button>
+</form>

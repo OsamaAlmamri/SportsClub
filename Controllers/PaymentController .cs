@@ -1,3 +1,4 @@
+﻿
 ﻿using Microsoft.AspNetCore.Mvc;
 using PayPal.Api;
 using System;
@@ -10,7 +11,7 @@ namespace SportsClub.Controllers
     [Route("api/[controller]")]
     public class PaymentController : ControllerBase
     {
-        private static readonly string PayPalClientId ="AYzcTmXVDg24ZmqQBnjNvKUvEYroWKwmZWMMTqGbVYwT5id5sefMddtQcJDdsVMvMWsfHBqjjmM-1tRZ";
+        private static readonly string PayPalClientId = "AYzcTmXVDg24ZmqQBnjNvKUvEYroWKwmZWMMTqGbVYwT5id5sefMddtQcJDdsVMvMWsfHBqjjmM-1tRZ";
         private static readonly string PayPalClientSecret = "EBIF-KfhSUQEWX1QZlbfNsN4BTRj4A7jmBGMyHTzAZXA7I5VpmIYmEre2sJtBY_2WRovxvzrzeyOpjO5";
 
         [HttpPost("create")]
@@ -71,7 +72,7 @@ namespace SportsClub.Controllers
             var paymentData = new { paymentId, approvalUrl };
 
             return Ok(paymentData);
-       
+
         }
 
         [HttpGet("execute")]
@@ -89,8 +90,8 @@ namespace SportsClub.Controllers
             var paymentStatus = executedPayment.state;
 
             // Redirect to a specific URL based on the payment status
-           // var redirectUrl = paymentStatus == "approved" ? "/payment" : "/counter";
-           return Redirect("/payment/" + paymentStatus);
+            // var redirectUrl = paymentStatus == "approved" ? "/payment" : "/counter";
+            return Redirect("/payment/" + paymentStatus);
             return Ok(paymentStatus);
             return Ok(executedPayment);
         }
@@ -128,7 +129,7 @@ voided: The payment authorization has been voided.
 
             var paymentStatus = payment.state;
 
-                var paymentData = new { paymentId, paymentStatus };
+            var paymentData = new { paymentId, paymentStatus };
             return Ok(paymentData);
         }
 

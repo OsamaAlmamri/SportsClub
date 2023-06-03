@@ -1,0 +1,66 @@
+<h1>Service List</h1>
+
+<button type="button" data-toggle="modal" data-target="#myModal" class="float-end btn btn-primary" (click)="openModal()">Add Service</button>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Period</th>
+    <th>Price</th>
+    <th>Service Type</th>
+    <th>Time Type</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let service of services">
+    <td>{{ service.id }}</td>
+    <td>{{ service.name }}</td>
+    <td>{{ service.period }}</td>
+    <td>{{ service.price }}</td>
+    <td>{{ service.serviceTypeName }}  </td>
+    <td>
+      <span  *ngIf="service.serviceTimeId > 0" >{{service.serviceTimeName}}  [ {{service.fromTime}} - {{service.toTime}}] </span>
+      <span *ngElse>
+                Not specified
+              </span>
+
+    </td>
+    <td>
+      <button class="btn btn-primary" (click)="editService(service)">Edit</button>
+      <button class="btn btn-danger" (click)="deleteService(service)">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+
+
+<!-- Bootstrap Modal -->
+<div class="modal show"
+
+     [ngStyle]="{'display': showModal ? 'block' :'none' }"
+      id="myModal" tabindex="-1" role="dialog" [ngClass]="{'show': showModal}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> <span *ngIf="editId==0">Add</span> <span *ngIf="editId>0"> Update</span> Service</h5>
+        <button type="button" class="close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-service-form [editId]="editId"
+                          [service]="editableService"
+                          (onServiceSaved)="addServiceToList($event)"
+                          (onServiceUpdated)="updateServiceInList($event)"
+        ></app-service-form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

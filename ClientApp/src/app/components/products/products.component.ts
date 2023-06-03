@@ -18,6 +18,10 @@ export class ProductsComponent {
 
   ngOnInit() {
     this.fetchProducts();
+    const storedCartItems = localStorage.getItem('cartItems');
+    if (storedCartItems) {
+      this.cartItems = JSON.parse(storedCartItems);
+    }
   }
 
   fetchProducts() {

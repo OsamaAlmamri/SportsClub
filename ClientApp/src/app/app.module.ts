@@ -12,6 +12,11 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ProductsComponent } from './components/products/products.component';
 import { CartComponent } from './components/cart/cart.component';
+import { UserSearchComponent } from './components/user-search/user-search.component';
+import { UserComponent } from './components/user/user.component';
+import { UserServicesComponent } from './components/user-services/user-services.component';
+import { ServiceListComponent } from './components/services/service-list/service-list.component';
+import { ServiceFormComponent } from './components/services/service-form/service-form.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +27,12 @@ import { CartComponent } from './components/cart/cart.component';
     CounterComponent,
     ProductsComponent,
     FetchDataComponent,
+    UserSearchComponent,
+    UserComponent,
+    UserServicesComponent,
+
+    ServiceListComponent,
+    ServiceFormComponent,
     CartComponent
   ],
   imports: [
@@ -36,6 +47,9 @@ import { CartComponent } from './components/cart/cart.component';
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'services', component: ProductsComponent },
       { path: 'cart', component: CartComponent },
+      { path: 'search', component: UserSearchComponent },
+      { path: 'services-manage', component: ServiceListComponent },
+      { path: 'add-service', component: ServiceFormComponent },
     ])
   ],
   providers: [],
