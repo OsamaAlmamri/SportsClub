@@ -30,11 +30,12 @@ public class AuthController : ControllerBase
         this.uriService = uriService;
         this._repostry = repostry;
         this._userRepostry = new UserRepostry(context);
+        this._userDetailRepostry = new UserDetailRepostry(context);
         this.mapper = mapper;
     }
 
 
-    [HttpPost]
+    [HttpPost("register")]
     //[ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> RegisterUser([FromBody] RegisterRequest userRegistration)
     {
@@ -56,8 +57,17 @@ public class AuthController : ControllerBase
                 Address = userRegistration.Address,
             };
             _userDetailRepostry.Create(userData);
-         
-         return   StatusCode(201);
+
+            var result = await _repostry.ValidateUserAsync(new LoginRequest {Email= userRegistration.Email,Password= userRegistration.Password });
+
+            string token = await _repostry.CreateTokenAsync();
+
+            var data = mapper.Map<AuthUserDto>(user);
+            data.Token = token;
+
+            return Ok(data);
+
+
 
         }
 

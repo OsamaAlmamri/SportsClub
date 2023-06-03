@@ -17,6 +17,11 @@ import { UserComponent } from './components/user/user.component';
 import { UserServicesComponent } from './components/user-services/user-services.component';
 import { ServiceListComponent } from './components/services/service-list/service-list.component';
 import { ServiceFormComponent } from './components/services/service-form/service-form.component';
+import {LoginComponent} from "./components/auth/login/login.component";
+import {RegisterComponent} from "./components/auth/register/register.component";
+import {LogoutComponent} from "./components/auth/logout/logout.component";
+import {ProfileComponent} from "./components/auth/profile/profile.component";
+import {AuthGuard} from "./components/auth/auth.guard";
 
 @NgModule({
   declarations: [
@@ -33,6 +38,9 @@ import { ServiceFormComponent } from './components/services/service-form/service
 
     ServiceListComponent,
     ServiceFormComponent,
+    LoginComponent,
+    RegisterComponent,
+    LogoutComponent,
     CartComponent
   ],
   imports: [
@@ -41,6 +49,7 @@ import { ServiceFormComponent } from './components/services/service-form/service
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
       { path: 'payment/:type', component: PaymentComponent },
       { path: 'payment', component: PaymentComponent },
       { path: 'counter', component: CounterComponent },
@@ -50,6 +59,9 @@ import { ServiceFormComponent } from './components/services/service-form/service
       { path: 'search', component: UserSearchComponent },
       { path: 'services-manage', component: ServiceListComponent },
       { path: 'add-service', component: ServiceFormComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'logout', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
     ])
   ],
   providers: [],

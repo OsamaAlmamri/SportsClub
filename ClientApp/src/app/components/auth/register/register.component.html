@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2>Register</h2>
+      <form (submit)=" register()" class="my-4" #registerForm="ngForm">
+        <div class="form-group">
+          <label for="UserName">Username:</label>
+          <input type="text" id="UserName" [(ngModel)]="registerData.UserName" name="UserName" class="form-control" required>
+          <div *ngIf="registerForm.controls.UserName.invalid && (registerForm.controls.UserName.dirty || registerForm.controls.UserName.touched)" class="text-danger">
+            <div *ngIf="registerForm.controls.UserName.errors.required">UserName is required.</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Email">Email:</label>
+          <input type="Email" id="Email" [(ngModel)]="registerData.Email" name="Email" class="form-control" required Email>
+          <div *ngIf="registerForm.controls.Email.invalid && (registerForm.controls.Email.dirty || registerForm.controls.Email.touched)" class="text-danger">
+            <div *ngIf="registerForm.controls.Email.errors.required">Email is required.</div>
+            <div *ngIf="registerForm.controls.Email.errors.Email">Invalid Email format.</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="FullName">Full Name:</label>
+          <input type="text" id="FullName" [(ngModel)]="registerData.FullName" name="FullName" class="form-control" required>
+          <div *ngIf="registerForm.controls.FullName.invalid && (registerForm.controls.FullName.dirty || registerForm.controls.FullName.touched)" class="text-danger">
+            <div *ngIf="registerForm.controls.FullName.errors.required">FullName is required.</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="PhoneNumber">Phone Number:</label>
+          <input type="tel" id="PhoneNumber" [(ngModel)]="registerData.PhoneNumber" name="PhoneNumber" class="form-control" required>
+          <div *ngIf="registerForm.controls.PhoneNumber.invalid && (registerForm.controls.PhoneNumber.dirty || registerForm.controls.PhoneNumber.touched)" class="text-danger">
+            <div *ngIf="registerForm.controls.PhoneNumber.errors.required">PhoneNumber is required.</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Password">Password:</label>
+          <input type="Password" id="Password" [(ngModel)]="registerData.Password" name="Password" class="form-control" required min="6" >
+          <div *ngIf="registerForm.controls.Password.invalid && (registerForm.controls.Password.dirty || registerForm.controls.Password.touched)" class="text-danger">
+            <div *ngIf="registerForm.controls.Password.errors.required">Password is required.</div>
+            <small class="text-danger" *ngIf="registerForm.controls.Password.errors.min">Password  should be at least 6 chars.</small>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="ConfirmPassword">Confirm Password:</label>
+          <input type="password" id="ConfirmPassword" [(ngModel)]="registerData.ConfirmPassword" name="ConfirmPassword" class="form-control" required>
+          <div *ngIf="registerData.Password && registerData.ConfirmPassword && registerData.Password !== registerData.ConfirmPassword" class="text-danger">
+            Passwords do not match.
+          </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
+          Register
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

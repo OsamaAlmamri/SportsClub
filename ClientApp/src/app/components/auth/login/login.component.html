@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2>Login</h2>
+      <form (submit)="login()" class="my-4" #registerForm="ngForm">
+
+        <div class="form-group">
+          <label for="Email">Email:</label>
+          <input type="Email" id="Email" [(ngModel)]="loginModal.Email" name="Email" class="form-control" required Email>
+          <div *ngIf="registerForm.controls.Email.invalid && (registerForm.controls.Email.dirty || registerForm.controls.Email.touched)" class="text-danger">
+            <div *ngIf="registerForm.controls.Email.errors.required">Email is required.</div>
+            <div *ngIf="registerForm.controls.Email.errors.Email">Invalid Email format.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="Password">Password:</label>
+          <input type="Password" id="Password" [(ngModel)]="loginModal.Password" name="Password" class="form-control" required min="6" >
+          <div *ngIf="registerForm.controls.Password.invalid && (registerForm.controls.Password.dirty || registerForm.controls.Password.touched)" class="text-danger">
+            <div *ngIf="registerForm.controls.Password.errors.required">Password is required.</div>
+            <small class="text-danger" *ngIf="registerForm.controls.Password.errors.min">Password  should be at least 6 chars.</small>
+
+          </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary"  [disabled]="registerForm.invalid"> Login</button>
+      </form>
+    </div>
+  </div>
+</div>

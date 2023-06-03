@@ -27,9 +27,9 @@
           >
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
           </li>
-          
+
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/payment']">payment</a>
+            <a class="nav-link text-dark" [routerLink]="['/payment']" *ngIf="authService.isAuthenticated()">  payment</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/services']">services</a>
@@ -41,7 +41,23 @@
             <a class="nav-link text-dark" [routerLink]="['/search']"> search</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/services-manage']"> services-manage</a>
+            <a class="nav-link text-dark" [routerLink]="['/services-manage']"*ngIf="authService.isAuthenticated()">  services-manage</a>
+          </li>
+
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/register']" *ngIf="!authService.isAuthenticated()"> register</a>
+          </li>
+
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/profile']" *ngIf="authService.isAuthenticated()"> profile</a>
+          </li>
+
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="!authService.isAuthenticated()">
+            <a class="nav-link text-dark" [routerLink]="['/login']" > login</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']"*ngIf="authService.isAuthenticated()">
+
+            <app-logout></app-logout>
           </li>
 
         </ul>
