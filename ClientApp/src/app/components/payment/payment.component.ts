@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PaymentService } from '../services/payment.service';
+import { PaymentService } from '../../services/payment.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -63,7 +63,7 @@ export class PaymentComponent {
     }, (error) => {                              //Error callback
       console.error(error)
       console.error('error caught in component')
-     
+
     });
 
     this.paymentService.checkPaymentStatus(this.paymentId).subscribe(status => {

@@ -5,11 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { PaymentComponent } from './payment/payment.component';
+import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
+import { HomeComponent } from './components/home/home.component';
+
+import { PaymentComponent } from './components/payment/payment.component';
 import { ProductsComponent } from './components/products/products.component';
 import { CartComponent } from './components/cart/cart.component';
 import { UserSearchComponent } from './components/user-search/user-search.component';
@@ -29,9 +28,8 @@ import {AuthGuard} from "./components/auth/auth.guard";
     NavMenuComponent,
     HomeComponent,
     PaymentComponent,
-    CounterComponent,
     ProductsComponent,
-    FetchDataComponent,
+
     UserSearchComponent,
     UserComponent,
     UserServicesComponent,
@@ -52,8 +50,6 @@ import {AuthGuard} from "./components/auth/auth.guard";
       { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
       { path: 'payment/:type', component: PaymentComponent },
       { path: 'payment', component: PaymentComponent },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
       { path: 'services', component: ProductsComponent },
       { path: 'cart', component: CartComponent },
       { path: 'search', component: UserSearchComponent },
