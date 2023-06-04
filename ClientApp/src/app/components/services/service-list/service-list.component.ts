@@ -94,6 +94,9 @@ export class ServiceListComponent implements OnInit {
       this.serviceService.deleteService(service.id)
         .subscribe(() => {
           this.services = this.services.filter(s => s !== service);
+        },(error)=>{
+          console.log(error);
+          alert("can not delete")
         });
     }
   }

@@ -80,12 +80,12 @@ namespace SportsClub.Controllers
             {
                 if (serviceRequerst == null)
                 {
-                    return BadRequest("service object is null");
+                    return BadRequest(new { message = "service object is null" });
                 }
 
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest("Invalid model object");
+                    return BadRequest(new { message = "Invalid model object" });
                 }
 
                 var service = new Service()
@@ -124,12 +124,12 @@ namespace SportsClub.Controllers
                 var service = _repostry.Find(e => e.Id == id);
                 if (serviceRequerst == null)
                 {
-                    return BadRequest("service object is null");
+                    return BadRequest(new { message = "service object is null" });
                 }
 
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest("Invalid model object");
+                    return BadRequest(new { message = "Invalid model object" });
                 }
 
 
@@ -164,15 +164,18 @@ namespace SportsClub.Controllers
             try
             {
                 var re = _repostry.Find(e => e.Id == id);
-                if (re == null)
+               var child=context.UserSubscriptionServices.Where(s=>s.ServiceId == id).FirstOrDefault();
+                if (child != null)
                 {
-                    return BadRequest("service object is null");
+                    return BadRequest(new{ message= "can not delete beques  service countain subscripred services " });
                 }
 
-                if (!ModelState.IsValid)
+                if (re == null)
                 {
-                    return BadRequest("Invalid model object");
+                    return BadRequest(new { message = "service object is null" });
                 }
+
+              
                 _repostry.Delete(re);
                 return NoContent();
             }
