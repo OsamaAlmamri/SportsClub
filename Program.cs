@@ -15,6 +15,7 @@ using System.Text;
 using SportsClub.Core.Payments;
 using SportsClub.Controllers;
 using SportsClub.Core.Services;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -82,6 +83,11 @@ var assembly = typeof(Program).Assembly; ;
 /*
 builder.Services.AddMvc().AddControllersAsServices();*/
 
+builder.Services.AddControllersWithViews();
+builder.Services.AddSpaStaticFiles(configuration =>
+{
+    configuration.RootPath = "ClientApp/dist";
+});
 builder.Services
     .AddControllers()
     .AddApplicationPart(assembly)
@@ -107,15 +113,20 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
+
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+app.UseExceptionHandler("/Home/Error");
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 //app.UseCors(MyAllowSpecificOrigins);
 
+app.UseSpaStaticFiles();
 app.UseCors(x => x
             .AllowAnyOrigin()
             .AllowAnyMethod()
@@ -128,6 +139,16 @@ app.UseEndpoints(x => x.MapControllers());
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
+
+app.UseSpa(spa =>
+{
+    spa.Options.SourcePath = "ClientApp";
+
+    if (app.Environment.IsDevelopment())
+    {
+        spa.UseAngularCliServer(npmScript: "start");
+    }
+});
 
 app.MapFallbackToFile("index.html"); ;
 

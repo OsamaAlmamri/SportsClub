@@ -6,7 +6,11 @@ const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_H
 const PROXY_CONFIG = [
   {
     context: [
-     "/**",
+     "/api/**",
+     "/mvc/**",
+     "/lib/**",
+     "/css/**",
+     "/js/**",
    ],
     target: target,
     secure: false,
@@ -15,13 +19,7 @@ const PROXY_CONFIG = [
     },
    
 
-    bypass: function (req, res, proxyOptions) {
-      if (!req.originalUrl.includes('api')) {
-        console.log('Skipping proxy for browser request.');
-       return '/index.html';
-      }
-      req.headers['X-Custom-Header'] = 'yes';
-    }
+
   }
 ]
 
