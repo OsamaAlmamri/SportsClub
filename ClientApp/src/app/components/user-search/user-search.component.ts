@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {User} from "../../models/user";
+import {ServiceTimesService} from "../../services/service-times.service";
+import {UserSubscribtionService} from "../../services/user-subscribtion.service";
 
 
 @Component({
@@ -15,7 +17,7 @@ export class UserSearchComponent {
   userServices: any[] = [];
   searchPerformed: boolean = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private userSubscriptionService: UserSubscribtionService,private http: HttpClient) { }
 
   searchUsers(): void {
     this.searchPerformed = true;
@@ -43,10 +45,7 @@ export class UserSearchComponent {
       return;
     }
 
-    const apiUrl = '/api/UserSubscriptionsServices'; // Replace with your ASP.NET endpoint URL
-
-    this.http.get<User[]>(apiUrl, { params: { id: UserID } })
-      .subscribe(data => {
+    this.userSubscriptionService.getUserServices(UserID).subscribe(data => {
         this.userServices = data;
         this.showServices = true;
       });

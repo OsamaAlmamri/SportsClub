@@ -57,7 +57,7 @@ namespace SportsClub.Controllers
         public async Task<IActionResult> Search(string searchTerm)
         {
             var pagedData = _repostry.FindByCondition(a => a.Email.Contains(searchTerm)  || a.UserName.Contains(searchTerm) || a.UserDetail.FullName.Contains(searchTerm));
-            var Result = mapper.Map<List<UserDto>>(pagedData);
+            var Result = mapper.Map<List<AuthUserDto>>(pagedData);
             return Ok(Result);
 
         

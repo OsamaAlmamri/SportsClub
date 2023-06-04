@@ -15,7 +15,7 @@ export class UserServicesComponent {
 
     return varDate < today
   }
-  
+
   isHaveTime() {
     var haveTime = false;
     for (var i = 0; i < this.userServices.length; i++) {
@@ -24,7 +24,7 @@ export class UserServicesComponent {
       }
 
     }
-  
+
 
     return haveTime
   }

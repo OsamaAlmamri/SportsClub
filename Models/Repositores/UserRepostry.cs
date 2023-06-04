@@ -51,8 +51,9 @@ namespace SportsClub.Models.Repositores
         public override IQueryable<User> FindByCondition(Expression<Func<User, bool>> expression)
         {
             return RepositoryContext.Set<User>()
+                .Include(s => s.UserDetail)
                 .Where(expression)
-                 .Include(s => s.UserDetail)
+                 
                  .AsNoTracking();
         }
 

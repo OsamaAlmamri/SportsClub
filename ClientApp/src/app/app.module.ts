@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule ,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -33,7 +33,7 @@ import {AuthGuard} from "./components/auth/auth.guard";
     UserSearchComponent,
     UserComponent,
     UserServicesComponent,
-
+    ProfileComponent,
     ServiceListComponent,
     ServiceFormComponent,
     LoginComponent,
@@ -62,6 +62,9 @@ import {AuthGuard} from "./components/auth/auth.guard";
     ])
   ],
   providers: [],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

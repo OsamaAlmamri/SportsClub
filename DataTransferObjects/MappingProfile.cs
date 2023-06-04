@@ -36,7 +36,10 @@ namespace SportsClub.DataTransferObjects
                 .ForMember(v => v.User, opt => opt.MapFrom(vr => vr.User));
                
             CreateMap<UserDetail, UserDetailDto>();
-            CreateMap<User, UserDto>();
+            CreateMap<User, UserDto>()
+                   .ForMember(v => v.FullName, opt => opt.MapFrom(vr => vr.UserDetail.FullName))
+                .ForMember(v => v.Address, opt => opt.MapFrom(vr => vr.UserDetail.Address))
+                .ForMember(v => v.BirthDate, opt => opt.MapFrom(vr => vr.UserDetail.BirthDate));
             CreateMap<UserSubscription, UserSubscriptionDto>();
             CreateMap<UserSubscriptionPaymentGatway, UserSubscriptionPaymentGatwayDto>();
         
