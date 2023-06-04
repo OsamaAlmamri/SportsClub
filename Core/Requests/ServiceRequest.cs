@@ -15,7 +15,7 @@ namespace SportsClub.Core.Requests
         public int Period { get; set; }
         [Required]
         public long ServiceTypeId { get; set; }
-        [Required]
+     
         public long? ServiceTimeId { get; set; }
 
         public string? Description { get; set; }
@@ -27,12 +27,14 @@ namespace SportsClub.Core.Requests
         public ServiceForignKeysValidator(SportsClubContext database)
         {
             this.RuleFor(w => w.ServiceTypeId)
+                
                 .Must(ServiceTypeId => database.ServiceTypes.Any(type => type.Id == ServiceTypeId))
                 .WithMessage("Service Type does not exist with id ${ServiceTimeId}");
 
-            this.RuleFor(w => w.ServiceTimeId)
+         
+         /*   this.RuleFor(w => w.ServiceTimeId)
               .Must(ServiceTimeId => database.ServiceTimes.Any(type => type.Id == ServiceTimeId))
-              .WithMessage("Service time does not exist");
+              .WithMessage("Service time does not exist");*/
 
         }
     }

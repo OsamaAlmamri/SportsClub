@@ -34,9 +34,15 @@
            'table-warning': isInFutureDate(service.startAt) ||(service.endAt==null)  ,
                 'table-danger' :  (isEndDate( service.endAt) && service.endAt!=null) ,
               'table-success' :!isInFutureDate(service.startAt) && !isEndDate( service.endAt)&& service.endAt!=null }"  >
-        <td> {{service.service.serviceTypeName}}  </td>
-        <td>  <span  *ngIf="service.service.serviceTimeId > 0" >{{service.service.serviceTimeName}}  [ {{service.service.fromTime}} - {{service.service.toTime}}] </span>
-              <span *ngElse>
+        <td    > {{service.service.serviceTypeName}}  </td>
+
+
+        <td [ngClass]="{
+                'table-danger' : ( !isInFutureDate(service.startAt) && !isEndDate( service.endAt)&& service.endAt!=null) &&(service.service.serviceTimeId!=null || isInTime(service.service.fromTime,service.service.toTime)) ,
+              'table-success' :(!isInFutureDate(service.startAt) && !isEndDate( service.endAt)&& service.endAt!=null )&&(service.service.serviceTimeId==null || isInTime(service.service.fromTime,service.service.toTime)) }" >
+
+          <span  *ngIf="service.service.serviceTimeId!=null" >{{service.service.serviceTimeName}}  [ {{service.service.fromTime}} - {{service.service.toTime}}] </span>
+              <span *ngIf="service.service.serviceTimeId==null">
                 Not specified
               </span>
 

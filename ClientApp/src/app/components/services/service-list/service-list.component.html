@@ -22,8 +22,8 @@
     <td>{{ service.price }}</td>
     <td>{{ service.serviceTypeName }}  </td>
     <td>
-      <span  *ngIf="service.serviceTimeId > 0" >{{service.serviceTimeName}}  [ {{service.fromTime}} - {{service.toTime}}] </span>
-      <span *ngElse>
+      <span  *ngIf="service.serviceTimeId!=null" >{{service.serviceTimeName}}  [ {{service.fromTime}} - {{service.toTime}}] </span>
+      <span *ngIf="service.serviceTimeId==null">
                 Not specified
               </span>
 

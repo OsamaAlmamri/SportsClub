@@ -118,6 +118,7 @@ namespace SportsClub.Models
 
 
 
+
                 entity.HasOne(d => d.ServiceType)
                  .WithMany(p => p.Services)
                  .HasForeignKey(d => d.ServiceTypeId)
@@ -125,6 +126,7 @@ namespace SportsClub.Models
 
                 entity.HasOne(d => d.ServiceTime)
                .WithMany(p => p.Services)
+               
                .HasForeignKey(d => d.ServiceTimeId)
                .HasConstraintName("services_service_time_id_foreign");
 

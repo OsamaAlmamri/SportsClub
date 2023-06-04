@@ -49,10 +49,8 @@
 
   <div class="form-group">
     <label for="Description">Comment:</label>
-    <textarea  [(ngModel)]="service.Description" class="form-control" name="Description" required rows="5" id="Description"></textarea>
-    <div *ngIf="serviceForm.controls.Description.invalid && (serviceForm.controls.Description.dirty || serviceForm.controls.Description.touched)">
-      <small class="text-danger" *ngIf="serviceForm.controls.Description.errors.required">Service Description is required.</small>
-    </div>
+    <textarea  [(ngModel)]="service.Description" class="form-control" name="Description"  rows="5" id="Description"></textarea>
+
   </div>
   <button type="submit" class="btn btn-primary" [disabled]="serviceForm.invalid">
     <span *ngIf="editId==0">Save</span> <span *ngIf="editId>0"> Update</span>

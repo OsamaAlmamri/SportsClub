@@ -29,6 +29,9 @@ export class UserServicesComponent {
 
   isInTime(fromTime: string, toTime: string) {
 
+    if(fromTime==null)
+      return  false;
+
 
     const currentTime = new Date(); // Get the current time
 
@@ -55,9 +58,10 @@ export class UserServicesComponent {
       if (!this.isInFutureDate(this.userServices[i].startAt) &&
         !this.isEndDate(this.userServices[i].endAt) && this.userServices[i].endAt != null) {
 
-        if (this.isInTime(this.userServices[i].service.fromTime ,this.userServices[i].service.toTime) )
+        if (this.userServices[i].service.serviceTimeId==null || this.isInTime(this.userServices[i].service.fromTime ,this.userServices[i].service.toTime) ) {
           haveTime = true;
-        break;
+          break;
+        }
       }
     }
     return haveTime

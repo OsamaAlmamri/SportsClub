@@ -8,5 +8,6 @@ dotnet tool install --global dotnet-ef
  dotnet ef migrations  script    -s SportsClub/SportsClub.csproj
  dotnet ef migrations  add "UpdatesUserBirthDay"    -s SportsClub/SportsClub.csproj
  dotnet ef migrations  add "auth"    -s SportsClub/SportsClub.csproj
+  dotnet ef migrations  add "update2"    -s SportsClub/SportsClub.csproj
 
  dotnet ef database update    -s SportsClub/SportsClub.csproj

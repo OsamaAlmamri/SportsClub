@@ -35,12 +35,20 @@
                   <!--<span class="text-primary"> • </span>
                   <span>Best finish<br /></span>-->
                 </div>
-                <div class="mb-2 text-muted small">
+                <div class="mb-2 text-muted small"  *ngIf="product.serviceTimeId!=null" >
                   <span>time</span>
                   <span class="text-primary"> • </span>
                   <span>{{product.serviceTimeName}}</span>
                   <span class="text-primary"> • </span>
                   <span>{{product.fromTime}} to {{product.toTime}}<br /></span>
+                </div>
+
+
+                <div class="mb-2 text-muted small"  *ngIf="product.serviceTimeId==null" >
+                  <span>time</span>
+                  <span class="text-primary"> • </span>
+                  <span>  Not specified </span>
+
                 </div>
                 <p class="text-muted mb-4 mb-md-0">
                   {{product.description}}
