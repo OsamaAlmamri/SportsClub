@@ -150,7 +150,8 @@ namespace SportsClub.Controllers
                 return Problem("Entity set 'SportsClubContext.ServiceTypes'  is null.");
             }
             var serviceType = await _context.ServiceTypes.FindAsync(id);
-            if (serviceType != null)
+            var child = _context.Services.Where(s => s.ServiceTypeId == id).FirstOrDefault();
+            if (serviceType != null && child==null)
             {
                 _context.ServiceTypes.Remove(serviceType);
             }

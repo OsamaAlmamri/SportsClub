@@ -150,7 +150,8 @@ namespace SportsClub.Controllers
                 return Problem("Entity set 'SportsClubContext.ServiceTimes'  is null.");
             }
             var serviceTime = await _context.ServiceTimes.FindAsync(id);
-            if (serviceTime != null)
+            var child = _context.Services.Where(s => s.ServiceTimeId == id).FirstOrDefault();
+            if (serviceTime != null && child==null)
             {
                 _context.ServiceTimes.Remove(serviceTime);
             }

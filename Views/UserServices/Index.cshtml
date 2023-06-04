@@ -1,0 +1,91 @@
+﻿@model IEnumerable<SportsClub.Models.UserSubscriptionService>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>User Services List</h3>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+             <th>
+                @Html.DisplayNameFor(model => model.Service)
+            </th>
+           <th>
+                @Html.DisplayNameFor(model => model.Service.ServiceTime)
+            </th>
+           <th>
+                @Html.DisplayNameFor(model => model.Service.ServiceType)
+            </th>
+         
+            <th>
+                @Html.DisplayNameFor(model => model.StartAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service.Period)
+            </th>
+
+             <th>
+                @Html.DisplayNameFor(model => model.EndAt)
+            </th>
+          
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserSubscription)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Service.Name)
+            </td>
+            
+
+              <td>
+                 @Html.DisplayFor(modelItem => item.Service.ServiceTime.Name)
+                 [
+                    @Html.DisplayFor(modelItem => item.Service.ServiceTime.FromTime)
+                              -
+                  @Html.DisplayFor(modelItem => item.Service.ServiceTime.ToTime)
+  
+                
+                ]
+            </td>
+              <td>
+                @Html.DisplayFor(modelItem => item.Service.ServiceType.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.StartAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Service.Period) days
+            </td>
+
+             <td>
+                @Html.DisplayFor(modelItem => item.EndAt)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserDetail.FullName) [  @Html.DisplayFor(modelItem => item.User.UserName)]
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserSubscription.CreatedAt)
+            </td>
+            <td>
+                 <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Edit</a> 
+                <a asp-action="Details" class="btn btn-success" asp-route-id="@item.Id">Details</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

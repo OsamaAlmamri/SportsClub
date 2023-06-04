@@ -167,7 +167,11 @@ namespace SportsClub.Controllers
                 return Problem("Entity set 'SportsClubContext.Services'  is null.");
             }
             var service = await _context.Services.FindAsync(id);
-            if (service != null)
+
+            var child = _context.UserSubscriptionServices.Where(s => s.ServiceId == id).FirstOrDefault();
+           
+
+            if (service != null && child==null)
             {
                 _context.Services.Remove(service);
             }
