@@ -138,7 +138,8 @@ app.UseAuthorization();
 app.UseEndpoints(x => x.MapControllers());
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.UseSpa(spa =>
 {
