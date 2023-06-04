@@ -72,6 +72,7 @@ namespace SportsClub.Controllers
             return Ok(ownerResult);
           
         }
+        
 
 
         [HttpPost]
@@ -101,15 +102,15 @@ namespace SportsClub.Controllers
 
                 foreach (UserSubscriptionServicesRequest serviceRequest in userSubscriptionRequest.Services)
                 {
-                    var service=context.Services.Where(s=>s.Id==serviceRequest.ServiceId).FirstOrDefault();
+                    var service=context.Services.Where(s=>s.Id==serviceRequest.id).FirstOrDefault();
                     total += service.Price;
                     var userSubscriptionSrtvice = new UserSubscriptionService()
                     {
                         UserSubscriptionId = us.Id,
                         ServiceId = service.Id,
                         UserId = us.UserId,
-                        StartAt = serviceRequest.StartAt,
-                        EndAt = serviceRequest.StartAt?.AddDays(service.Period)
+                        StartAt = serviceRequest.startAt,
+                        EndAt = serviceRequest.startAt?.AddDays(service.Period)
 
                 };
                     context.UserSubscriptionServices.Add(userSubscriptionSrtvice);

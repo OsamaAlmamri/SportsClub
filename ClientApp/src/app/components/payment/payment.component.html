@@ -1,5 +1,14 @@
 <div *ngIf="type==null">
-  <button (click)="initiatePayment()">Pay with PayPal</button>
+  <div *ngIf="authService.isAuthenticated()">
+    <h1>Select Payment Method </h1>
+    <button (click)="initiatePayment()">
+      <img width="200" src="assets/paypal.jpg">
+    </button>
+  </div>
+  <div *ngIf="!authService.isAuthenticated()">
+
+   <h3> you most create account before payment</h3>
+  </div>
 </div>
 
 <div *ngIf="type!=null">

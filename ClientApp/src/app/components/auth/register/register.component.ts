@@ -22,6 +22,8 @@ export class RegisterComponent {
     Password:"",
     ConfirmPassword:"",
     FullName:"",
+    BirthDate:"",
+    Address:"",
   };
 
   constructor(private authService: AuthService,private router: Router) { }

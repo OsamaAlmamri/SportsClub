@@ -6,5 +6,7 @@ export class RegisterModal {
   PhoneNumber: string;
   Password: string;
   ConfirmPassword: string;
+  BirthDate: string;
+  Address: string;
 
 }

@@ -1,5 +1,7 @@
 // cart.component.ts
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {Service} from "../../models/service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-cart',
@@ -7,9 +9,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
-  cartItems: any[] = [];
+  cartItems: Service[] = [];
+  type: string | null;
 
-  constructor() {
+  constructor(private router: Router, private route: ActivatedRoute) {
+    this.type = route.snapshot.paramMap.get('type');
+    if (this.type == "approved")
+      localStorage.removeItem('cartItems');
     const storedCartItems = localStorage.getItem('cartItems');
     if (storedCartItems) {
       this.cartItems = JSON.parse(storedCartItems);
@@ -27,7 +33,7 @@ export class CartComponent {
   getTotalPrice() {
     let totalPrice = 0;
     for (const item of this.cartItems) {
-      totalPrice += item.price * item.quantity;
+      totalPrice += item.price;
     }
     return totalPrice;
   }

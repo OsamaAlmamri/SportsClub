@@ -1,6 +1,7 @@
 // products.component.ts
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {Service} from "../../models/service";
 
 @Component({
   selector: 'app-products',
@@ -8,9 +9,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent {
-  cartItems: any[] = [];
+  cartItems: Service[] = [];
 
-  products: any[];
+  products: Service[];
 
   constructor(private http: HttpClient) {
     this.products = [];
@@ -47,7 +48,7 @@ export class ProductsComponent {
   addToCart(product: any) {
     const existingItem = this.cartItems.find(item => item.id === product.id);
     if (!existingItem) {
-      this.cartItems.push({ ...product, quantity: 1 });
+      this.cartItems.push({ ...product });
 
       // Update local storage with the updated cart items
       localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
@@ -71,7 +72,7 @@ export class ProductsComponent {
   getTotalPrice() {
     let totalPrice = 0;
     for (const item of this.cartItems) {
-      totalPrice += item.price * item.quantity;
+      totalPrice += item.price ;
     }
     return totalPrice;
   }

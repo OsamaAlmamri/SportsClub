@@ -32,6 +32,17 @@
             <div *ngIf="registerForm.controls.PhoneNumber.errors.required">PhoneNumber is required.</div>
           </div>
         </div>
+
+        <div class="form-group">
+          <label for="birthday">BirthDate</label>
+          <input type="date" class="form-control" id="birthday" name="birthday" required [(ngModel)]="registerData.BirthDate">
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <textarea class="form-control" id="address" name="Address" rows="2" required [(ngModel)]="registerData.Address"></textarea>
+        </div>
+
+
         <div class="form-group">
           <label for="Password">Password:</label>
           <input type="Password" id="Password" [(ngModel)]="registerData.Password" name="Password" class="form-control" required min="6" >

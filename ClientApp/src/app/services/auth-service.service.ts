@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {RegisterModal} from "../models/register-modal";
 import {LoginModal} from "../models/login-modal";
@@ -22,6 +22,16 @@ export class AuthService {
   isAuthenticated(): boolean {
     const jwtToken = localStorage.getItem("jwtToken");
     return !!jwtToken;
+  }
+  getAuthHeader(): HttpHeaders {
+    const jwtToken = localStorage.getItem("jwtToken");
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${jwtToken}`
+    });
+
+    return headers ;
+
   }
 
   getUser(): any {

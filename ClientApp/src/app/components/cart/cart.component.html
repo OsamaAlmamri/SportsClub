@@ -1,11 +1,57 @@
 <!-- cart.component.html -->
-<h2>Cart</h2>
-<ul class="list-group">
-  <li class="list-group-item" *ngFor="let item of cartItems">
-    {{ item.name }} - Quantity: {{ item.quantity }}
-    <button class="btn btn-danger btn-sm" (click)="removeFromCart(item)">Remove</button>
-  </li>
-</ul>
-<div class="total-price">
-  <p>Total Price: {{ getTotalPrice() }}</p>
+
+
+<div class="container" *ngIf="type == 'approved'">
+
+  <h1>payment success </h1>
 </div>
+<div class="container" *ngIf="cartItems.length>0">
+  <h2>Services that You Select </h2>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Period</th>
+      <th>Price</th>
+      <th>Service Type</th>
+      <th>Time Type</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let service of cartItems">
+      <td>{{ service.id }}</td>
+      <td>{{ service.name }}</td>
+      <td>{{ service.period }}</td>
+      <td>{{ service.price }}</td>
+      <td>{{ service.serviceTypeName }}  </td>
+      <td>
+        <span  *ngIf="service.serviceTimeId > 0" >{{service.serviceTimeName}}  [ {{service.fromTime}} - {{service.toTime}}] </span>
+        <span *ngElse>
+                Not specified
+              </span>
+
+      </td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="removeFromCart(service)">Remove</button>
+
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+
+  <div class="total-price">
+    <p>Total Price: {{ getTotalPrice() }}</p>
+  </div>
+<app-payment></app-payment>
+</div>
+<div class="container text-center" *ngIf="cartItems.length==0">
+  <img src="assets/empty.png">
+  <h3> your cart is empty</h3>
+  <p> select services that you want</p>
+</div>
+
+
+

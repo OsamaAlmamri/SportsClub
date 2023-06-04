@@ -51,6 +51,7 @@ import {AuthGuard} from "./components/auth/auth.guard";
       { path: 'payment/:type', component: PaymentComponent },
       { path: 'payment', component: PaymentComponent },
       { path: 'services', component: ProductsComponent },
+      { path: 'cart/:type', component: CartComponent },
       { path: 'cart', component: CartComponent },
       { path: 'search', component: UserSearchComponent },
       { path: 'services-manage', component: ServiceListComponent },

@@ -1,7 +1,10 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject ,Input} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PaymentService } from '../../services/payment.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import {AuthService} from "../../services/auth-service.service";
+import {AddServiceForm} from "../../models/service-form";
+import {Service} from "../../models/service";
 
 
 @Component({
@@ -11,23 +14,29 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class PaymentComponent {
   approvalUrl: string="";
+  cartItems: Service[] = [];
+
   paymentId: string="";
   type: string | null;
   paymentComplete = false;
-  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string, private paymentService: PaymentService, private router: Router, private route: ActivatedRoute) {
+  constructor(public authService: AuthService,private http: HttpClient, @Inject('BASE_URL') baseUrl: string, private paymentService: PaymentService, private router: Router, private route: ActivatedRoute) {
     this.type = route.snapshot.paramMap.get('type');
     this.approvalUrl = baseUrl;
   }
 
 
 
-
   initiatePayment() {
-    this.paymentService.createPayment().subscribe(result => {
+    const storedCartItems = localStorage.getItem('cartItems');
+    if (storedCartItems) {
+      this.cartItems = JSON.parse(storedCartItems);
+    }
+
+    this.paymentService.createPayment(this.cartItems).subscribe(result => {
       this.paymentId = result.paymentId;
       window.open(result.approvalUrl, '_self');
 
-      this.checkPaymentStatus();
+     // this.checkPaymentStatus();
     }, (error) => {                              //Error callback
       console.error(error)
       console.error('error caught in component')

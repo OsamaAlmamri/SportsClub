@@ -4,6 +4,11 @@ using PayPal.Api;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using SportsClub.Core.Requests;
+using SportsClub.Core.Services;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using SportsClub.Models;
 
 namespace SportsClub.Controllers
 {
@@ -13,26 +18,42 @@ namespace SportsClub.Controllers
     {
         private static readonly string PayPalClientId = "AYzcTmXVDg24ZmqQBnjNvKUvEYroWKwmZWMMTqGbVYwT5id5sefMddtQcJDdsVMvMWsfHBqjjmM-1tRZ";
         private static readonly string PayPalClientSecret = "EBIF-KfhSUQEWX1QZlbfNsN4BTRj4A7jmBGMyHTzAZXA7I5VpmIYmEre2sJtBY_2WRovxvzrzeyOpjO5";
-
-        [HttpPost("create")]
-        public IActionResult CreatePayment()
+        private readonly IManageSubscription manageSubscription;
+        private string userId;
+        private readonly SportsClubContext context;
+        public PaymentController( SportsClubContext context)
         {
+            this.context = context;
+            this.manageSubscription = new ManageSubscription(context);
+        }
+
+        [Authorize]
+        [HttpPost("create")]
+        public IActionResult CreatePayment([FromBody] UserSubscriptionRequest userSubscriptionRequest)
+        {
+            this.userId = (HttpContext.User.Claims?.FirstOrDefault(c => c.Type.Equals(ClaimTypes.PrimarySid))?.Value);
+
+            
+             var   userSubscription  = manageSubscription.createTempSubscription(userSubscriptionRequest, this.userId);
             var apiContext = new APIContext(new OAuthTokenCredential(PayPalClientId, PayPalClientSecret).GetAccessToken());
+
 
             var itemList = new ItemList()
             {
                 items = new List<Item>()
                 {
+
                     new Item()
                     {
-                        name = "Sample Item",
+                        name = "Services Subscription",
                         currency = "USD",
-                        price = "10.00",
+                        price = userSubscription.TotaAmount.ToString(),
                         quantity = "1",
                         sku = "SAMPLE_SKU"
                     }
                 }
             };
+
 
             var payer = new Payer() { payment_method = "paypal" };
 
@@ -45,13 +66,13 @@ namespace SportsClub.Controllers
             var amount = new Amount()
             {
                 currency = "USD",
-                total = "10.00"
+                total = userSubscription.TotaAmount.ToString(),
             };
 
             var transaction = new Transaction()
             {
-                description = "Sample transaction",
-                invoice_number = new Random().Next(100000).ToString(),
+                description = "Services Subscription",
+                invoice_number =userSubscription.Id.ToString(),
                 amount = amount,
                 item_list = itemList
             };
@@ -86,12 +107,29 @@ namespace SportsClub.Controllers
 
             var executedPayment = payment.Execute(apiContext, paymentExecution);
 
+       
             // Process the payment response as needed
             var paymentStatus = executedPayment.state;
+            if (paymentStatus== "approved")
+            {
+                var userSubscriptionId = (long)Convert.ToDouble(executedPayment.transactions[0].invoice_number);
+                var userSubscriptionPaymentGatway = new UserSubscriptionPaymentGatway()
+                {
+                    UserSubscriptionId = userSubscriptionId,
+                    PaymentGatwayId = 1,
+                    ResponseCode = executedPayment.state,
+                    TransactionId = executedPayment.id,
+                    Amount = Convert.ToDouble(executedPayment.transactions[0].amount.total),
+                    Currency = executedPayment.transactions[0].amount.currency,
+                };
+                manageSubscription.saveTempSubscription(userSubscriptionId, userSubscriptionPaymentGatway);
+            }
+            //invoice_number 
+        
 
             // Redirect to a specific URL based on the payment status
             // var redirectUrl = paymentStatus == "approved" ? "/payment" : "/counter";
-            return Redirect("/payment/" + paymentStatus);
+            return Redirect("/cart/" + paymentStatus);
             return Ok(paymentStatus);
             return Ok(executedPayment);
         }
@@ -100,7 +138,7 @@ namespace SportsClub.Controllers
         public IActionResult CancelPayment()
         {
             // Handle payment cancellation
-            return Redirect("/payment/cancel");
+            return Redirect("/cart");
             return Ok("cancel");
         }
 
