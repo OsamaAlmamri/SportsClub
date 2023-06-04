@@ -2,14 +2,14 @@
 import {Component} from '@angular/core';
 import {Service} from "../../models/service";
 import {ActivatedRoute, Router} from "@angular/router";
-
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
-  cartItems: Service[] = [];
+  cartItems: any[] = [];
   type: string | null;
 
   constructor(private router: Router, private route: ActivatedRoute) {
@@ -26,6 +26,15 @@ export class CartComponent {
     const itemIndex = this.cartItems.findIndex(cartItem => cartItem.id === item.id);
     if (itemIndex !== -1) {
       this.cartItems.splice(itemIndex, 1);
+      localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+    }
+  }
+
+  saveStartTime(dateEvent:any,id: any) {
+    console.log(dateEvent.target.value)
+    const itemIndex = this.cartItems.findIndex(cartItem => cartItem.id === id);
+    if (itemIndex !== -1) {
+      this.cartItems[itemIndex].startAt=dateEvent.target.value;
       localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
     }
   }

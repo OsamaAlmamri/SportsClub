@@ -16,6 +16,7 @@
       <th>Price</th>
       <th>Service Type</th>
       <th>Time Type</th>
+      <th>start At</th>
       <th>Actions</th>
     </tr>
     </thead>
@@ -26,6 +27,7 @@
       <td>{{ service.period }}</td>
       <td>{{ service.price }}</td>
       <td>{{ service.serviceTypeName }}  </td>
+
       <td>
         <span  *ngIf="service.serviceTimeId > 0" >{{service.serviceTimeName}}  [ {{service.fromTime}} - {{service.toTime}}] </span>
         <span *ngElse>
@@ -33,6 +35,7 @@
               </span>
 
       </td>
+      <td> <input type="date" value="{{service.startAt}}" (change)="saveStartTime($event,service.id)"   >   </td>
       <td>
         <button class="btn btn-danger btn-sm" (click)="removeFromCart(service)">Remove</button>
 

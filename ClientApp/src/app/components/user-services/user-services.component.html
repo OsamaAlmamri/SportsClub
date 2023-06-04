@@ -27,7 +27,14 @@
               </span>
 
         </td>
-        <td>  {{service.startAt}}   </td>
+        <td >
+          <span *ngIf="service.startAt!=null">{{service.startAt}}</span>
+        <div *ngIf="service.startAt==null">
+        <input type="date" value="{{service.startAt}}" (change)="saveStartTime($event,service.id)"   >
+
+      </div>
+
+        </td>
         <td>  {{service.service.period}}   </td>
         <td>  {{service.endAt}}   </td>
       </tr>

@@ -31,6 +31,18 @@ namespace SportsClub.Models.Repositores
                 .Include(s => s.UserSubscription).AsNoTracking();
         }
 
+        public override UserSubscriptionService Find(Expression<Func<UserSubscriptionService, bool>> expression)
+        {
+            return RepositoryContext.Set<UserSubscriptionService>()
+                .Where(expression)
+                     .Include(s => s.Service)
+                .Include(s => s.Service.ServiceType)
+                .Include(s => s.Service.ServiceTime)
+                .Include(s => s.UserSubscription)
+                .FirstOrDefault();
+
+
+        }
 
 
     }

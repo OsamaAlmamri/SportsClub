@@ -48,7 +48,7 @@ export class ProductsComponent {
   addToCart(product: any) {
     const existingItem = this.cartItems.find(item => item.id === product.id);
     if (!existingItem) {
-      this.cartItems.push({ ...product });
+      this.cartItems.push({ ...product, startAt: ""});
 
       // Update local storage with the updated cart items
       localStorage.setItem('cartItems', JSON.stringify(this.cartItems));

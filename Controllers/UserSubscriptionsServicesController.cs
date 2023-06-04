@@ -54,9 +54,40 @@ namespace SportsClub.Controllers
 
 
 
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Update(long id, [FromBody] UserSubscriptionService userSubscriptionService)
+        {
+            try
+            {
+
+
+                // return Ok(serviceType);
+               
+                var re = _repostry.Find(e => e.Id == id);
+                if (re == null)
+                {
+                    return BadRequest("userSubscriptionService object is null");
+                }
+
+               
+         
+                re.StartAt = userSubscriptionService.StartAt ;
+                re.EndAt = userSubscriptionService.StartAt?.AddDays(re.Service.Period) ;
+
+                _repostry.Update(re);
+
+                var ownerResult = mapper.Map<UserSubscriptionServiceDto>(re);
+                return Ok(ownerResult);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.ToString());
+            }
+        }
 
 
 
-        
+
     }
 }
